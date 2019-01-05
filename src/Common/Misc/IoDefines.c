@@ -5,22 +5,24 @@ const IO_IN_HAL_DEFINE *gpIoInDefs=NULL;
 const IO_OUT_HAL_DEFINE *gpIoOutDefs=NULL;
 
 static const IO_IN_HAL_DEFINE gIoInDefs[IOIN_MAX]={
-{IOIN_PIO0,GPI_A,  GPin0, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI0_IRQn,EXTI_Pio_Priority},
-{IOIN_PIO1,GPI_A,  GPin1, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_PIO2,GPI_A,  GPin2, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_PIO3,GPI_A,  GPin3, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_PIO4,GPI_A,  GPin4, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_PIO5,GPI_A,  GPin5, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_PIO6,GPI_A,  GPin6, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_PIO7,GPI_A,  GPin7, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-};
-	
-static const IO_OUT_HAL_DEFINE gIoOutDefs[IOOUT_MAX]={
-{IOOUT_LED1,GPI_B,  GPin8, GPIO_Mode_Out_PP,TRUE},
-{IOOUT_LED2,GPI_B,  GPin9, GPIO_Mode_Out_PP,TRUE},
-{IOOUT_FLASH_CS,GPI_A,  GPin8, GPIO_Mode_Out_PP,TRUE},//flash cs
-{IOOUT_FLASH_WP,GPI_B,  GPin12, GPIO_Mode_Out_PP,FALSE},//flash wp
+{IOIN_PIO0,		GPI_A,  GPin0, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI0_IRQn,EXTI_Pio_Priority},
+{IOIN_PIO1,		GPI_A,  GPin1, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
+{IOIN_PIO2,		GPI_A,  GPin2, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
+{IOIN_PIO3,		GPI_A,  GPin3, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
+{IOIN_PIO4,		GPI_A,  GPin4, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
+{IOIN_PIO5,		GPI_A,  GPin5, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
+{IOIN_PIO6,		GPI_A,  GPin6, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
+{IOIN_PIO7,		GPI_A,  GPin7, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
+{IOIN_IR_IN,		GPI_B,  GPin3, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI3_IRQn,EXTI_Pio_Priority},
 
+};
+
+static const IO_OUT_HAL_DEFINE gIoOutDefs[IOOUT_MAX]={
+{IOOUT_LED1,			GPI_B,	GPin8,		GPIO_Mode_Out_PP,TRUE},
+{IOOUT_LED2,			GPI_B,	GPin9,		GPIO_Mode_Out_PP,TRUE},
+{IOOUT_FLASH_CS,	GPI_A,	GPin8,		GPIO_Mode_Out_PP,TRUE},//flash cs
+{IOOUT_FLASH_WP,	GPI_B,	GPin12,	GPIO_Mode_Out_PP,FALSE},//flash wp
+{IOOUT_IR_OUT,		GPI_B,	GPin4,		GPIO_Mode_Out_PP,FALSE},//ir out
 
 };
 

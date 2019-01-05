@@ -10,6 +10,7 @@ typedef enum{
 	IOIN_PIO5,
 	IOIN_PIO6,
 	IOIN_PIO7,
+	IOIN_IR_IN,
 	
 	IOIN_MAX
 }IO_IN_DEFS;
@@ -19,6 +20,7 @@ typedef enum{
 	IOOUT_LED2,
 	IOOUT_FLASH_CS,
 	IOOUT_FLASH_WP,
+	IOOUT_IR_OUT,
 	
 	IOOUT_MAX
 }IO_OUT_DEFS;

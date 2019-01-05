@@ -367,7 +367,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Common\Drivers;..\..\Common\Lib;..\..\Common\Lib\inc;..\..\Common\DataSave;..\..\Common\InfoSave;..\..\Common\Misc;..\..\Common\SysHandler;..\..\Common\SysTimer;..\Controllers;..\Include;..\User</IncludePath>
+              <IncludePath>..\..\Common\Drivers;..\..\Common\Lib;..\..\Common\Lib\inc;..\..\Common\Storage;..\..\Common\Misc;..\..\Common\SysHandler;..\..\Common\SysTimer;..\Controllers;..\Include;..\User;..\Data</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -515,6 +515,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Common\Drivers\SpiFlash_w25q.c</FilePath>
             </File>
+            <File>
+              <FileName>RomFlash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Drivers\RomFlash.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -538,12 +543,7 @@
             <File>
               <FileName>RomFlashSave.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\DataSave\RomFlashSave.c</FilePath>
-            </File>
-            <File>
-              <FileName>RomFlash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Common\DataSave\RomFlash.c</FilePath>
+              <FilePath>..\Data\RomFlashSave.c</FilePath>
             </File>
           </Files>
         </Group>
