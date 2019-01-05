@@ -6,7 +6,7 @@ void IWDG_PeriodCB(void);
 void RebootBoard(void);
 void DefaultConfig(void);
 
-bool SysCmdHandler(u16 Len,u8 *pStr,u8 *pOutStream);
+bool SysCmdHandler(u16 Len,char *pStr,char *pOutStream);
 
 
 

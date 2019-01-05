@@ -2,7 +2,7 @@
 #include "Product.h"
 
 
-static bool __inline SysCmdHandler_A(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_A(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"adc")==0)
 	{
@@ -28,27 +28,27 @@ static bool __inline SysCmdHandler_A(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_B(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_B(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 
 
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_C(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_C(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 
 	
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_D(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_D(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"debug")==0)
 	{
 		if(IsNullStr(pParam[0]))//help
 		{
-			//RFS_Debug();
+			RFS_Debug();
 		}
 		else if(NotNullStr(pParam[0]))
 		{
@@ -58,7 +58,7 @@ static bool __inline SysCmdHandler_D(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 			//if(NotNullStr(pParam[1])) Idx=StrToUint(pParam[1]);
 			//if(NotNullStr(pParam[2])) Num=StrToUint(pParam[2]);
 
-			if(strcmp((void *)pParam[0],"sys")==0) {}//RFS_Debug();}
+			if(strcmp((void *)pParam[0],"sys")==0) {RFS_Debug();}
 			else if(strcmp((void *)pParam[0],"tim")==0) {DebugSysTimer();}
 			//else if(strcmp((void *)pParam[0],"task")==0) {DebugTask();Debug("\r\n");DebugSysTimer();}
 			else if(strcmp((void *)pParam[0],"ms")==0) {MsFuncRcdDisp();}	
@@ -77,7 +77,7 @@ static bool __inline SysCmdHandler_D(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_E(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_E(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"erase")==0)
 	{
@@ -110,19 +110,201 @@ static bool __inline SysCmdHandler_E(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_F(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_F(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
-	
+	if(strcmp((void *)pCmd,"flash")==0)
+	{
+		if(strcmp((void *)pParam[0],"wen")==0)	
+		{
+			if(StrToUint(pParam[1]))	W25Q_Write_Enable();
+			else W25Q_Write_Disable();
+		}
+		else if(strcmp((void *)pParam[0],"wp")==0)
+		{
+			if(IsNullStr(pParam[1]))
+			{
+				Debug("Now Wp=%u\n\r",IOOUT_ReadIoStatus(IOOUT_FLASH_WP));
+			}
+			else
+			{
+				if(StrToUint(pParam[1]))	IOOUT_SetIoStatus(IOOUT_FLASH_WP,TRUE);
+				else IOOUT_SetIoStatus(IOOUT_FLASH_WP,FALSE);
+			}
+		}
+		else if(strcmp((void *)pParam[0],"protect")==0)
+		{
+			if(IsNullStr(pParam[1]))
+			{
+				Debug("Now protect=%u\n\r",W25Q_IsProtect());
+			}
+			else
+			{
+				if(StrToUint(pParam[1]))	W25Q_Protect(TRUE);
+				else W25Q_Protect(FALSE);
+			}
+		}		
+		else if(strcmp((void *)pParam[0],"status")==0)	
+		{
+			Debug("StateReg:0x%x\n\r",W25Q_Read_Status_Reg());
+		}
+		else if(strcmp((void *)pParam[0],"wtsta")==0)	
+		{
+			W25Q_Set_Status_Reg((W25Q_MEM_PROTE)StrToUint(pParam[1]),(W25Q_STA_REG_PROTE)StrToUint(pParam[2]));
+		}
+		else if(strcmp((void *)pParam[0],"read_page")==0)
+		{
+			u32 Page=StrToUint(pParam[1]);
+			u16 Num=StrToUint(pParam[2]);
+			char *pPageData=Q_Malloc(W25Q_PAGE_SIZE);
+			u16 i=0;
+
+			if(Num==0) Num=1;
+
+			for(i=0;i<Num;i++,Page++)
+			{
+				W25Q_Read_Data(Page*W25Q_PAGE_SIZE,W25Q_PAGE_SIZE,pPageData);
+				Debug("Page %d Data:\r\n",Page);
+				DisplayBuf(pPageData,W25Q_PAGE_SIZE,16);
+			}
+			Q_Free(pPageData);
+		}
+		else if(strcmp((void *)pParam[0],"read")==0)
+		{
+			u32 Addr=StrToUint(pParam[1]);
+			u16 Num=StrToUint(pParam[2]);
+			char *pPageData=Q_Malloc(Num);
+			u32 Now=GetSysStartMs();
+			W25Q_Read_Data(Addr,Num?Num:1,pPageData);Debug("Read %dMs\n\r",GetSysStartMs()-Now);
+			Debug("Addr 0x%x(%u) Data:\r\n",Addr,Addr);
+			DisplayBuf(pPageData,Num,16);
+			Q_Free(pPageData);
+		}
+		else if(strcmp((void *)pParam[0],"read_fast")==0)
+		{
+			u32 Addr=StrToUint(pParam[1]);
+			u16 Num=StrToUint(pParam[2]);
+			char *pPageData=Q_Malloc(Num);
+			u32 Now=GetSysStartMs();
+			W25Q_Fast_Read_Data(Addr,Num?Num:1,pPageData);Debug("Read %dMs\n\r",GetSysStartMs()-Now);
+			Debug("Addr 0x%x(%u) Data:\r\n",Addr,Addr);
+			DisplayBuf(pPageData,Num,16);
+			Q_Free(pPageData);
+		}
+		else if(strcmp((void *)pParam[0],"read_sec")==0)
+		{
+			u32 Addr=StrToUint(pParam[1])*FLASH_SECTOR_BYTES;
+			u16 Page=StrToUint(pParam[2])*FLASH_PAGE_SIZE;
+			u16 PageNum=StrToUint(pParam[3]);
+			char *pPageData=NULL;
+			u32 Now=GetSysStartMs();
+
+			if(PageNum==0) PageNum=1;
+			if(PageNum>16) PageNum=16;
+			pPageData=Q_Malloc(PageNum*FLASH_PAGE_SIZE);
+			W25Q_Read_Data(Addr+Page,PageNum*FLASH_PAGE_SIZE,pPageData);Debug("Read %dMs\n\r",GetSysStartMs()-Now);
+			Debug("Addr 0x%x(%u) Data:\r\n",Addr,Addr);
+			DisplayBuf(pPageData,PageNum*FLASH_PAGE_SIZE,16);
+			Q_Free(pPageData);
+		}
+		else if(strcmp((void *)pParam[0],"read_minsec")==0)
+		{
+			u32 Addr=StrToUint(pParam[1])*FLASH_MIN_SEC_BYTES;
+			u16 Page=StrToUint(pParam[2])*FLASH_PAGE_SIZE;
+			u16 PageNum=StrToUint(pParam[3]);
+			char *pPageData=NULL;
+			u32 Now=GetSysStartMs();
+
+			if(PageNum==0) PageNum=1;
+			if(PageNum>16) PageNum=16;
+			pPageData=Q_Malloc(PageNum*FLASH_PAGE_SIZE);
+			W25Q_Read_Data(Addr+Page,PageNum*FLASH_PAGE_SIZE,pPageData);Debug("Read %dMs\n\r",GetSysStartMs()-Now);
+			Debug("Addr 0x%x(%u) Data:\r\n",Addr,Addr);
+			DisplayBuf(pPageData,PageNum*FLASH_PAGE_SIZE,16);
+			Q_Free(pPageData);
+		}
+		else if(strcmp((void *)pParam[0],"write")==0)
+		{
+			u32 Addr=StrToUint(pParam[1]);
+			u16 Len=StrToUint(pParam[2]);
+			char Data=StrToUint(pParam[3]);
+			char *pPageData=Q_Malloc(Len);
+			u32 Now=GetSysStartMs();
+			
+			MemSet(pPageData,Data,Len);
+			W25Q_Program(Addr,Len,pPageData);
+
+			Debug("Write %dmS\n\r",GetSysStartMs()-Now);
+			Q_Free(pPageData);
+		}
+		else if(strcmp((void *)pParam[0],"erase")==0)
+		{
+			u32 Addr=StrToUint(pParam[1]);
+			u8 Type=StrToUint(pParam[2]);
+			u32 Now;
+
+			if(NotNullStr(pParam[1]))
+			{
+				Debug("Start Erase...\n\r");
+				Now=GetSysStartMs();
+				W25Q_Erase(Addr,Type);
+				Debug("Finish %dmS\n\r",GetSysStartMs()-Now);
+			}
+		}
+		else if(strcmp((void *)pParam[0],"erase_sec")==0)
+		{
+			u32 Sec=StrToUint(pParam[1]);
+			u32 Num=StrToUint(pParam[2]);
+			u32 Now;
+
+			if(Sec && Num)
+			{
+				Debug("Start Erase Sec...\n\r");
+				Now=GetSysStartMs();
+				SpiFlsEraseSector(Sec,Num);
+				Debug("Finish %dmS\n\r",GetSysStartMs()-Now);
+			}
+		}
+		else if(strcmp((void *)pParam[0],"erase_minsec")==0)
+		{
+			u32 Sec=StrToUint(pParam[1]);
+			u32 Num=StrToUint(pParam[2]);
+			u32 Now;
+
+			if(Sec && Num)
+			{
+				Debug("Start Erase Sec...\n\r");
+				Now=GetSysStartMs();
+
+				for(;Num;Num--,Sec++)
+				{
+					SpiFlsEraseMinSec(Sec*FLASH_MIN_SEC_BYTES);
+				}
+				
+				Debug("Finish %dmS\n\r",GetSysStartMs()-Now);
+			}
+		}
+		else if(strcmp((void *)pParam[0],"erase_chip")==0)
+		{
+			u32 Now;
+
+			Debug("Start Erase...\n\r");
+			Now=GetSysStartMs();
+			W25Q_Bulk_Erase();
+			Debug("Finish %dmS\n\r",GetSysStartMs()-Now);
+		}
+		
+		return TRUE;
+	}
 	
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_G(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_G(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_H(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_H(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"heap")==0)
 	{
@@ -135,7 +317,7 @@ static bool __inline SysCmdHandler_H(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_I(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_I(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"ioset")==0)
 	{
@@ -146,22 +328,22 @@ static bool __inline SysCmdHandler_I(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_K(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_K(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_M(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_M(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_N(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_N(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_P(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_P(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"pwm1")==0)
 	{
@@ -196,14 +378,14 @@ static bool __inline SysCmdHandler_P(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_Q(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_Q(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 
 	return FALSE;
 }
 
 
-static bool __inline SysCmdHandler_R(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_R(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"reset")==0)
 	{
@@ -213,7 +395,7 @@ static bool __inline SysCmdHandler_R(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_S(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_S(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"save")==0)
 	{
@@ -230,7 +412,7 @@ static bool __inline SysCmdHandler_S(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_T(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_T(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"test")==0)
 	{
@@ -251,13 +433,13 @@ static bool __inline SysCmdHandler_T(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_U(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_U(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 
 	return FALSE;
 }
 
-static bool __inline SysCmdHandler_V(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_V(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 	if(strcmp((void *)pCmd,"version")==0)
 	{
@@ -273,7 +455,7 @@ static bool __inline SysCmdHandler_V(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
     return FALSE;
 }
 
-static bool __inline SysCmdHandler_W(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOutStream)
+static bool __inline SysCmdHandler_W(char *pCmd,char **pParam,char *StrCopyBuf,char *pOutStream)
 {
 
 	return FALSE;
@@ -285,12 +467,12 @@ static bool __inline SysCmdHandler_W(u8 *pCmd,u8 **pParam,u8 *StrCopyBuf,u8 *pOu
 //将处理如下命令:
 #define UART_CMD_MAX_PARAM_NUM 6//最长参数
 #define COM_CMD_STR_LEN 128
-bool SysCmdHandler(u16 Len,u8 *pStr,u8 *pOutStream)
+bool SysCmdHandler(u16 Len,char *pStr,char *pOutStream)
 {
 	u16 i,n;
-	u8 *pCmd=NULL;
-	u8 *pParam[UART_CMD_MAX_PARAM_NUM]={NULL,NULL,NULL,NULL,NULL,NULL};
-	u8 *pStrCopyBuf=NULL;
+	char *pCmd=NULL;
+	char *pParam[UART_CMD_MAX_PARAM_NUM]={NULL,NULL,NULL,NULL,NULL,NULL};
+	char *pStrCopyBuf=NULL;
 	bool Res=FALSE;
 	
 	if(Len==0)//控制字符

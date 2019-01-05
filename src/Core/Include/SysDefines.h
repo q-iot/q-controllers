@@ -14,7 +14,7 @@
 #define MAX_VAR(a,b)  (a)>(b)?(a):(b)
 #define MIN_VAR(a,b)  (a)<(b)?(a):(b)
 
-#define Frame() Debug("                                                                         |\r");
+#define Frame() Debug("                                                                    |\r");
 
 #include "LimitMarco.h"
 #include "Drivers.h"
@@ -25,6 +25,7 @@
 #include "MsFunc.h"
 #include "SecFunc.h"
 #include "SysTimer.h"
+#include "SpiFlashApi.h"
 #include "RomFlashSave.h"
 #include "SomeFunc.h"
 

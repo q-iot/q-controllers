@@ -1,7 +1,6 @@
 #include "SysDefines.h"
 #include "Product.h"
-#include "NewController.h"
-#include "TestController.h"
+#include "Controllers.h"
 
 u32 gWdgTimer=0;//系统定时器句柄
 u32 gTimingFuncTimer=0;//系统定时器句柄
@@ -13,8 +12,12 @@ void HardwareInit(void)
 	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable,ENABLE);//使用swd调试
 	GPIO_PinRemapConfig(GPIO_PartialRemap_TIM1,ENABLE);//TIM1_CH1N设置到PA7
 
+	IoDefinesInit();//io口初始化
 
-	
+	SpiFlsInit();
+
+	Tim2_Init();
+	Tim4_Init();
 }
 
 void EventStateHandler(void)
@@ -47,7 +50,7 @@ void EventStateHandler(void)
 				break;
 
 			default:
-				EventControllerPost(Event,S32Param,pParam);
+				EventControllerPost(Event,S32Param,pParam);//事件分发给控制器
 		}
 
 		//系统内部事件处理
@@ -69,7 +72,7 @@ void EventStateHandler(void)
 int main(void)
 {	
 	SysTick_Init();//节拍定义	
-	SystemInit();
+	SystemInit();//系统时钟初始化
 	COM1_Init(115200);//调试串口
 	COM3_Init(115200);//用户串口
 
@@ -83,14 +86,12 @@ int main(void)
 
 	NextLoopFuncInit();//sys time 会用到
 	SysTimerInit();//必须放到比较靠前的位置，防止有些初始化程序要用到Timing功能
-
 	gWdgTimer=AddSysTimer(STT_AUTO,WDG_CB_MS,EBF_NULL,IWDG_PeriodCB,TRUE);
 	gTimingFuncTimer=AddSysTimer(STT_MANUAL,0,EBF_NULL,MsFuncExpired,FALSE);
 	
 	MsFuncInit();//必须放到比较靠前的位置，防止有些初始化程序要用到Timing功能
 	SecFuncInit();//秒级定时器
 	HardwareInit();//底层硬件初始化
-	IoDefinesInit();//io口初始化
 
 	//指示灯
 	LedSet(IOOUT_LED1,1);//yellow

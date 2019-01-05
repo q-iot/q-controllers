@@ -510,6 +510,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Common\Drivers\Dht11.c</FilePath>
             </File>
+            <File>
+              <FileName>SpiFlash_w25q.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Drivers\SpiFlash_w25q.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

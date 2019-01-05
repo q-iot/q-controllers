@@ -488,7 +488,7 @@ void USART3_IRQHandler(void)
 
 UsRecvFinish:
 		{
-			u8 *pData=Q_Malloc(gUs3RecvLen+2);//分配的时候会自动清零，所以末尾不用赋0了
+			u8 *pData=Q_Malloc(gUs3RecvLen+2);//分配的时候会自动清零，所以末尾不用赋0了，在EventMemoryFree中释放
 			MemCpy(pData,Us3RecvBuf,gUs3RecvLen);
 			SendEvent(EBF_USER_COM_CMD,gUs3RecvLen,(void *)pData);
 			gUs3RecvLen=0;
