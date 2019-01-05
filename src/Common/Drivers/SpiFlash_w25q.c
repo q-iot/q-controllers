@@ -6,20 +6,13 @@
 #define FlsMutexRelease() //OS_SemGive(gSpiFlsMutex)
 #define WDG_FEED() IWDG_ReloadCounter()
 
-//片选
-#if PRODUCT_IS_F_LCD
-#define Flash_SpiInit() SPIv_Init()
-#define Select_Flash()     IOOUT_SetIoStatus(IOOUT_FLASH1_CS,FALSE);
-#define NotSelect_Flash()    IOOUT_SetIoStatus(IOOUT_FLASH1_CS,TRUE);
-#define SPI_Flash_Read() SPIv_ReadByte()
-#define	SPI_Flash_Write(x) SPIv_WriteByte(x)
-#else
 #define Flash_SpiInit() SPI2_Init()
-#define Select_Flash()     IOOUT_SetIoStatus(IOOUT_FLASH1_CS,FALSE);
-#define NotSelect_Flash()    IOOUT_SetIoStatus(IOOUT_FLASH1_CS,TRUE);
+#define Select_Flash()     IOOUT_SetIoStatus(IOOUT_FLASH_CS,FALSE);
+#define NotSelect_Flash()    IOOUT_SetIoStatus(IOOUT_FLASH_CS,TRUE);
+#define WriteEn_Flash() 	IOOUT_SetIoStatus(IOOUT_FLASH_WP,TRUE);
+#define WriteDis_Flash() 	IOOUT_SetIoStatus(IOOUT_FLASH_WP,FALSE);
 #define SPI_Flash_Read() SPI_ReadByte(SPI2)
 #define	SPI_Flash_Write(x) SPI_WriteByte(SPI2,x)
-#endif
 
 //返回true表示忙
 bool W25Q_Busy(void)
@@ -31,6 +24,7 @@ bool W25Q_Busy(void)
 void W25Q_Write_Enable(void)
 {
 	Select_Flash();	
+	WriteEn_Flash();
 	SPI_Flash_Write(WRITE_ENABLE);	
 	NotSelect_Flash();
 }
@@ -39,6 +33,7 @@ void W25Q_Write_Disable(void)//因为会自动disable，所以不常用此函数
 {
 	Select_Flash();	
 	SPI_Flash_Write(WRITE_DISABLE);	
+	WriteDis_Flash();
 	NotSelect_Flash();
 }
 
@@ -192,7 +187,7 @@ void W25Q_Program(u32 addr,u16 len,const u8 *buf)
 			SPI_Flash_Write(buf[i]);
 
 		NotSelect_Flash();
-		while(W25Q_Read_Status_Reg()&Bit(BIT_SREG_BUSY));	
+		while(W25Q_Busy());	
 		FlsMutexRelease();
 
 		buf+=FirstBytes,addr+=FirstBytes;
@@ -212,7 +207,7 @@ void W25Q_Program(u32 addr,u16 len,const u8 *buf)
 			SPI_Flash_Write(buf[i]);
 
 		NotSelect_Flash();
-		while(W25Q_Read_Status_Reg()&Bit(BIT_SREG_BUSY));	
+		while(W25Q_Busy());	
 		FlsMutexRelease();
 	}
 
@@ -230,7 +225,7 @@ void W25Q_Program(u32 addr,u16 len,const u8 *buf)
 			SPI_Flash_Write(buf[i]);
 
 		NotSelect_Flash();
-		while(W25Q_Read_Status_Reg()&Bit(BIT_SREG_BUSY));		
+		while(W25Q_Busy());		
 		FlsMutexRelease();
 	}
 }
@@ -248,7 +243,7 @@ void W25Q_Sector_Erase(u8 sector,u8 num)
 		SPI_Flash_Write(0);
 		SPI_Flash_Write(0);
 		NotSelect_Flash();
-		while(W25Q_Read_Status_Reg()&Bit(BIT_SREG_BUSY))//由于在操作系统中，所以此处使用os延时
+		while(W25Q_Busy())//如在操作系统中，所以此处可使用os延时
 		{
 			WDG_FEED();
 		}
@@ -272,7 +267,7 @@ void W25Q_Erase(u32 addr,u8 Type)
 	SPI_Flash_Write((addr>>8) & 0xff);
 	SPI_Flash_Write(addr & 0xff);
 	NotSelect_Flash();
-	while(W25Q_Read_Status_Reg()&Bit(BIT_SREG_BUSY))//由于在操作系统中，所以此处使用os延时
+	while(W25Q_Busy())//如在操作系统中，所以此处可使用os延时
 	{
 		WDG_FEED();
 	}
@@ -288,7 +283,7 @@ void W25Q_Bulk_Erase(void)
 	SPI_Flash_Write(ERASE_CHIP);	
 	NotSelect_Flash();
 
-	while(W25Q_Read_Status_Reg()&Bit(BIT_SREG_BUSY))//由于在操作系统中，所以此处使用os延时
+	while(W25Q_Busy())//如在操作系统中，所以此处可使用os延时
 	{
 		WDG_FEED();
 	}

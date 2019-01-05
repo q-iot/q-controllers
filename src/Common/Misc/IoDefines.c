@@ -18,6 +18,10 @@ static const IO_IN_HAL_DEFINE gIoInDefs[IOIN_MAX]={
 static const IO_OUT_HAL_DEFINE gIoOutDefs[IOOUT_MAX]={
 {IOOUT_LED1,GPI_B,  GPin8, GPIO_Mode_Out_PP,TRUE},
 {IOOUT_LED2,GPI_B,  GPin9, GPIO_Mode_Out_PP,TRUE},
+{IOOUT_FLASH_CS,GPI_A,  GPin8, GPIO_Mode_Out_PP,TRUE},//flash cs
+{IOOUT_FLASH_WP,GPI_B,  GPin12, GPIO_Mode_Out_PP,FALSE},//flash wp
+
+
 };
 
 static void HwChoice(void)

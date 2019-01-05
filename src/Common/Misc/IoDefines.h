@@ -17,6 +17,8 @@ typedef enum{
 typedef enum{
 	IOOUT_LED1=0,
 	IOOUT_LED2,
+	IOOUT_FLASH_CS,
+	IOOUT_FLASH_WP,
 	
 	IOOUT_MAX
 }IO_OUT_DEFS;

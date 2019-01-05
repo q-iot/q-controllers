@@ -21,6 +21,7 @@ typedef struct{
 	void *pNext;
 }QUEUE_ITEM;
 
+//新建队列
 void *Q_NewQueue(u16 ItemSize,u16 MaxNum)
 {
 	QUEUE_HEADER *pQueue;
@@ -31,7 +32,7 @@ void *Q_NewQueue(u16 ItemSize,u16 MaxNum)
 	ItemSize=AlignTo4(ItemSize);// 4字节对齐；
 	MallcoSize=sizeof(QUEUE_HEADER)+MaxNum*(sizeof(QUEUE_ITEM)+ItemSize);
 	//Debug("Queue Mallco %d\r\n",MallcoSize);
-	pQueue=Q_Malloc(MallcoSize);
+	pQueue=Q_Malloc(MallcoSize);//在Q_DeleteQueue中释放
 	//Debug("MallcoQ %x\r\n",(u32)pQueue);
 	MemSet((void *)pQueue,0,MallcoSize);
 	pQueue->RightCode=QUEUE_RIGHT_CODE;

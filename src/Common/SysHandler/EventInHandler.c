@@ -75,7 +75,7 @@ void SendEvent(EVENT_BIT_FLAG Event,s32 S32Param,void *pParam)
 	//Debug("E%u ",Event);
 	if(Event>(u32)EBF_NULL && Event<(u32)EBF_MAX) 
 	{
-		volatile EVENT_ITEM *p=Q_Malloc(sizeof(EVENT_ITEM));
+		volatile EVENT_ITEM *p=Q_Malloc(sizeof(EVENT_ITEM));//在WaitEvent中释放
 		IntSaveInit();
 		
 		p->Event=Event;
@@ -186,6 +186,18 @@ typedef struct{
 static EVENT_CTRLER_ITME gEvtCtrlers[EVENT_CONTROLLER_MAX]={{NULL,0}};//控制器列表
 static u16 gEvtCtrlerNum=0;
 
+
+//事件完成后，内存回收机制
+void EventMemoryFree(EVENT_BIT_FLAG Event,int Param,void *p)
+{
+	switch(Event)
+	{
+		case EBF_USER_COM_CMD:
+			if(IsHeapRam(p)) Q_Free(p);
+			break;
+	}
+}
+
 //控制器注册自己到系统
 void EventControllerRegister(const EVENT_FUNC_ITEM *pItemArray,const char *pName)
 {
@@ -228,6 +240,7 @@ void EventControllerPost(EVENT_BIT_FLAG Event,int Param,void *p)
 	}
 
 EvtFinish:
+	EventMemoryFree(Event,Param,p);//事件内存回收
 	return;
 }
 
