@@ -1,3 +1,17 @@
+//--------------------------Q Controllers---------------------------//
+/*
+Q-Ctrl是一套基于事件的控制器框架，类比于MCV框架，Q-Ctrl用于协调
+存储（Data）、输入输出（IO）、控制器（Controller）三者的逻辑处理，
+简称DIC框架。
+Q-Ctrl基于stm32有大量的驱动代码可直接调用，也可以移植于其他单片机平台，
+无需操作系统的支持，在遵守控制器编程规则的情况下，可处理以往需要操作系统
+才能处理的复杂业务。
+By Karlno 酷享科技
+
+本文件是项目代码的c启动文件
+*/
+//------------------------------------------------------------------//
+
 #include "SysDefines.h"
 #include "Product.h"
 #include "Controllers.h"
@@ -29,7 +43,7 @@ void EventStateHandler(void)
 	CleanAllEvent();//进循环之前清除所有事件标志位
 
 	//控制器init
-	EventControllerPost(EBF_INIT,0,NULL);
+	ControllerEvtPost(EBF_INIT,0,NULL);
 	
 	while(1)
 	{
@@ -50,7 +64,7 @@ void EventStateHandler(void)
 				break;
 
 			default:
-				EventControllerPost(Event,S32Param,pParam);//事件分发给控制器
+				ControllerEvtPost(Event,S32Param,pParam);//事件分发给控制器
 		}
 
 		//系统内部事件处理
@@ -59,8 +73,14 @@ void EventStateHandler(void)
 			case EBF_SEC_FUNC:
 				SecFuncExpired();
 				break;
+			case EBF_Q_COM_CMD:
+				if(IsHeapRam(pParam)) Q_Free(pParam);//释放用完的内存				
+				break;
 			case EBF_SYS_CMD:
-				SysCmdHandler(S32Param,pParam,NULL);
+				{
+					extern bool SysCmdHandler(u16 Len,const char *pStr,char *pOutStream);
+					SysCmdHandler(S32Param,pParam,NULL);
+				}
 				break;				
 			case EBF_NEXT_LOOP_FUNC:
 				NextFuncExcute(FALSE);
@@ -74,13 +94,12 @@ int main(void)
 	SysTick_Init();//节拍定义	
 	SystemInit();//系统时钟初始化
 	COM1_Init(115200);//调试串口
-	COM3_Init(115200);//用户串口
+	COM3_Init(74880);//用户串口，接q-wifi
 
 	DebugCol("\n\n\n\n\rQ-Controller");Debug(" ");
 	DebugCol("%u\n\r",GetHwID(NULL));
 	Debug("Release %u\n\r",RELEASE_DAY);
 
-    QS_HeapInit();//堆初始化
     RFS_Init();//数据存储初始化
 	Adc1_Rand_Init(0);//adc pa0 pa1 pa2 pa3，每个bit代表一路
 
@@ -102,6 +121,8 @@ int main(void)
 	DelayMs(200);
 
 	//控制器逐个注册，靠前的事件触发时优先执行
+	QComControllerReg();
+	QWifiControllerReg();
 	NewControllerReg();
 	TestControllerReg();
 

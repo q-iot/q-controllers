@@ -1,5 +1,5 @@
-#ifndef _TIME_H_
-#define _TIME_H_
+#ifndef __TIME_H__
+#define __TIME_H__
 
 void Tim1_Init(void);
 void Tim2_Init(void);

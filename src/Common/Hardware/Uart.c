@@ -1,13 +1,17 @@
+//--------------------------Q Controllers---------------------------//
 /*
- * FileName:       
- * Author:         YuanYin  Version: QXW-V1.x  Date: 2010-3-11
- * Description: 此文件里的函数和例程1.Uart里的是一样的，这里就不做重复注释了。    
- * Version:        
- * Function List:  
- *                 1.
- * History:        
- *     <author>   <time>    <version >   <desc>
- */
+Q-Ctrl是一套基于事件的控制器框架，类比于MCV框架，Q-Ctrl用于协调
+存储（Data）、输入输出（IO）、控制器（Controller）三者的逻辑处理，
+简称DIC框架。
+Q-Ctrl基于stm32有大量的驱动代码可直接调用，也可以移植于其他单片机平台，
+无需操作系统的支持，在遵守控制器编程规则的情况下，可处理以往需要操作系统
+才能处理的复杂业务。
+By Karlno 酷享科技
+
+本文件封装了串口驱动，可被开发者用于其他stm32项目，减少代码开发量
+*/
+//------------------------------------------------------------------//
+
 #include "Drivers.h"
 
 #if 0

@@ -1,5 +1,5 @@
-#ifndef TIMING_FUNC_H
-#define TIMING_FUNC_H
+#ifndef __MS_TIMING_FUNC_H__
+#define __MS_TIMING_FUNC_H__
 
 #include "stm32f10x.h"
 #include "EventInHandler.h"

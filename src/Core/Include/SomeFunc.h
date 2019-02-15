@@ -1,13 +1,8 @@
-#ifndef SOME_FUNCTION_H
-#define SOME_FUNCTION_H
+#ifndef __SOME_FUNCTION_H__
+#define __SOME_FUNCTION_H__
 
-void IWDG_Configuration(void);
-void IWDG_PeriodCB(void);
-void RebootBoard(void);
+
 void DefaultConfig(void);
-
-bool SysCmdHandler(u16 Len,char *pStr,char *pOutStream);
-
 
 
 #endif

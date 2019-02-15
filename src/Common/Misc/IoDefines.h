@@ -1,5 +1,5 @@
-#ifndef IO_DEFINES_H
-#define IO_DEFINES_H
+#ifndef __IO_DEFINES_H__
+#define __IO_DEFINES_H__
 
 typedef enum{
 	IOIN_PIO0=0,

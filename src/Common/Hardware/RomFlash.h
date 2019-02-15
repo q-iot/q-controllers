@@ -1,5 +1,5 @@
-#ifndef ROM_FLASH_H
-#define ROM_FLASH_H
+#ifndef __ROM_FLASH_H__
+#define __ROM_FLASH_H__
 
 void DebugRomPage(u32 PageNum);
 bool Rom_ReadPage(void *Buf,u32 Address,u32 Len);

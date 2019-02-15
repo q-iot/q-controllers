@@ -1,5 +1,5 @@
-#ifndef FUNCTION_TYPE_H
-#define FUNCTION_TYPE_H
+#ifndef __FUNCTION_TYPE_H__
+#define __FUNCTION_TYPE_H__
 
 typedef void (*pVoidFunc)(void);
 typedef void (*pStdFunc)(int,void *);

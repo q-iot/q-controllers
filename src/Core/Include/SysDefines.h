@@ -17,21 +17,28 @@
 #define Frame() Debug("                                                                    |\r");
 
 #include "LimitMarco.h"
+#include "FuncType.h"
 #include "Drivers.h"
-#include "Q_Heap.h"
-#include "Q_Queue.h"
-#include "EventInHandler.h"
-#include "NextLoopFunc.h"
-#include "MsFunc.h"
-#include "SecFunc.h"
-#include "SysTimer.h"
 #include "SpiFlashApi.h"
 #include "RomFlashSave.h"
 #include "SomeFunc.h"
+#include "Q_Heap.h"
+#include "Q_Queue.h"
+#include "MsFunc.h"
+#include "SecFunc.h"
+#include "SysTimer.h"
+#include "EventInHandler.h"
+#include "NextLoopFunc.h"
+#include "ControllerHandler.h"
+#include "QComFunc.h"
 
 extern const u32 __gBinSoftVer;
 extern const u32 __gBinSize;
 extern const u32 __gBinSum;
+
+
+//功能开关，注意功能函数要引用此头文件
+#define ENABLE_IR_FUNC 1//使用ir功能
 
  
 #endif

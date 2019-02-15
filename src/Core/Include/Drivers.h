@@ -1,9 +1,6 @@
 #ifndef DRIVERS_H
 #define DRIVERS_H
 
-#define RTC_RST_FLAG		0xa5a5
-
-//#define NULL (void *)0
 #define Bit(bit)		(1<<(bit))
 #define SetBit(reg,bit) (reg|=(1<<(bit)))
 #define ClrBit(reg,bit) (reg&=~(1<<(bit)))
@@ -34,10 +31,11 @@
 #include "IoDefines.h"
 #include "Time.h"
 #include "rtc.h"
+#include "Ir.h"
 #include "Delay.h"
 #include "RomFlash.h"
 #include "PublicFunc.h"
-#include "Q_Heap.h"
+#include "StmDevelop.h"
 
 /* ISR Priority 0(highest)-15(lowest)*/
 //数字越小优先级越高	

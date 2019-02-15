@@ -367,7 +367,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Common\Drivers;..\..\Common\Lib;..\..\Common\Lib\inc;..\..\Common\Storage;..\..\Common\Misc;..\..\Common\SysHandler;..\..\Common\SysTimer;..\Controllers;..\Include;..\User;..\Data</IncludePath>
+              <IncludePath>..\..\Common\Hardware;..\..\Common\Lib;..\..\Common\Lib\inc;..\..\Common\Storage;..\..\Common\Misc;..\..\Common\SysHandler;..\..\Common\SysTimer;..\..\Common\Include;..\..\Common\Q_Lib;..\Controllers;..\Include;..\User;..\Data</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -478,47 +478,62 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Drivers</GroupName>
+          <GroupName>Hardware</GroupName>
           <Files>
             <File>
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\Delay.c</FilePath>
+              <FilePath>..\..\Common\Hardware\Delay.c</FilePath>
             </File>
             <File>
               <FileName>Adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\Adc.c</FilePath>
+              <FilePath>..\..\Common\Hardware\Adc.c</FilePath>
             </File>
             <File>
               <FileName>Spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\Spi.c</FilePath>
+              <FilePath>..\..\Common\Hardware\Spi.c</FilePath>
             </File>
             <File>
               <FileName>Time.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\Time.c</FilePath>
+              <FilePath>..\..\Common\Hardware\Time.c</FilePath>
             </File>
             <File>
               <FileName>Uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\Uart.c</FilePath>
+              <FilePath>..\..\Common\Hardware\Uart.c</FilePath>
             </File>
             <File>
               <FileName>Dht11.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\Dht11.c</FilePath>
+              <FilePath>..\..\Common\Hardware\Dht11.c</FilePath>
             </File>
             <File>
               <FileName>SpiFlash_w25q.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\SpiFlash_w25q.c</FilePath>
+              <FilePath>..\..\Common\Hardware\SpiFlash_w25q.c</FilePath>
             </File>
             <File>
               <FileName>RomFlash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Drivers\RomFlash.c</FilePath>
+              <FilePath>..\..\Common\Hardware\RomFlash.c</FilePath>
+            </File>
+            <File>
+              <FileName>Ir.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Hardware\Ir.c</FilePath>
+            </File>
+            <File>
+              <FileName>IrOut.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Hardware\IrOut.c</FilePath>
+            </File>
+            <File>
+              <FileName>StmDevelop.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Hardware\StmDevelop.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -534,6 +549,11 @@
               <FileName>SomeFunc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\SomeFunc.c</FilePath>
+            </File>
+            <File>
+              <FileName>StrParse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Misc\StrParse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -551,24 +571,19 @@
           <GroupName>SysHandler</GroupName>
           <Files>
             <File>
-              <FileName>EventInHandler.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Common\SysHandler\EventInHandler.c</FilePath>
-            </File>
-            <File>
               <FileName>NextLoopFunc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Common\SysHandler\NextLoopFunc.c</FilePath>
             </File>
             <File>
-              <FileName>Q_Heap.c</FileName>
+              <FileName>EventInHandler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysHandler\Q_Heap.c</FilePath>
+              <FilePath>..\..\Common\SysHandler\EventInHandler.c</FilePath>
             </File>
             <File>
-              <FileName>Q_Queue.c</FileName>
+              <FileName>ControllerHandler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysHandler\Q_Queue.c</FilePath>
+              <FilePath>..\..\Common\SysHandler\ControllerHandler.c</FilePath>
             </File>
             <File>
               <FileName>MsFunc.c</FileName>
@@ -585,6 +600,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\Common\SysTimer\SysTimer.c</FilePath>
             </File>
+            <File>
+              <FileName>Q_Heap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Q_Lib\Q_Heap.c</FilePath>
+            </File>
+            <File>
+              <FileName>Q_Queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Q_Lib\Q_Queue.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -599,6 +624,16 @@
               <FileName>TestController.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Controllers\TestController.c</FilePath>
+            </File>
+            <File>
+              <FileName>QComController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Controllers\QComController.c</FilePath>
+            </File>
+            <File>
+              <FileName>QWifiController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Controllers\QWifiController.c</FilePath>
             </File>
           </Files>
         </Group>

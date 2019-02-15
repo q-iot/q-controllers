@@ -1,5 +1,5 @@
-#ifndef EVENT_IN_HANDLER_H
-#define EVENT_IN_HANDLER_H
+#ifndef __EVENT_IN_HANDLER_H__
+#define __EVENT_IN_HANDLER_H__
 
 
 typedef enum{
@@ -15,13 +15,26 @@ typedef enum{
 	EBF_30SEC,
 	EBF_TIM2,
 	EBF_TIM4,
+	EBF_IR,
 
 	//系统事件
 	EBF_IDLE,
 	EBF_INIT,
 	
 	//数据传入
-	EBF_USER_COM_CMD,//用户串口有命令进来
+	EBF_Q_COM_CMD,//与qwifi连接的串口有命令进来
+	EBF_QWIFI_STATE,//
+	EBF_QWIFI_KEY,//
+	EBF_QWIFI_VAR,//
+	EBF_QWIFI_MSG,//
+	EBF_QWIFI_READ_VAR_RET,
+	EBF_QWIFI_READ_VAR_ERROR,
+	EBF_QWIFI_SET_VAR_RET,
+	EBF_QWIFI_SET_VAR_ERROR,
+	EBF_QWIFI_MSG_RET,//
+	EBF_QWIFI_STR_RET,//
+
+
 	
 	//内部任务
 	EBF_SYS_CMD,//系统串口命令
@@ -54,15 +67,11 @@ typedef enum{
 	EFR_MAX
 }EVENT_HANDLER_RESUTL;
 
-typedef EVENT_HANDLER_RESUTL (*pEvtFunc)(int,void *);
+typedef EVENT_HANDLER_RESUTL (*pEvtFunc)(EVENT_BIT_FLAG,int,void *);
 typedef struct{
 	EVENT_BIT_FLAG Event;
 	pEvtFunc EvtFunc;
 }EVENT_FUNC_ITEM;
-
-
-
-
 
 
 void EventDebug(void);
@@ -71,8 +80,6 @@ void SendEvent(EVENT_BIT_FLAG BitFlag,s32 S32Param,void *pParam);
 void CleanAllEvent(void);
 void *WaitEvent(EVENT_BIT_FLAG *pEvent,s32 *pS32);
 bool CheckEventFinished(EVENT_BIT_FLAG Event);
-void EventControllerRegister(const EVENT_FUNC_ITEM *pItemArray,const char *pName);
-void EventControllerPost(EVENT_BIT_FLAG Event,int Param,void *p);
 
 
 #endif

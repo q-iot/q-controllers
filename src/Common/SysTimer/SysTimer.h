@@ -1,5 +1,5 @@
-#ifndef SYS_TIMER_H
-#define SYS_TIMER_H
+#ifndef __SYS_TIMER_H__
+#define __SYS_TIMER_H__
 
 #include "FuncType.h"
 #include "Product.h"

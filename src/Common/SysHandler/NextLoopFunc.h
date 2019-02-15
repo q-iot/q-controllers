@@ -1,5 +1,5 @@
-#ifndef NEXT_LOOP_FUNC
-#define  NEXT_LOOP_FUNC
+#ifndef __NEXT_LOOP_FUNC__
+#define  __NEXT_LOOP_FUNC__
 
 #include "FuncType.h"
 

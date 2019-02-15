@@ -1,10 +1,9 @@
-#ifndef PRODUCT_H
-#define PRODUCT_H
+#ifndef __PRODUCT_H__
+#define __PRODUCT_H__
 
-#define RELEASE_DAY 20181216
+#define RELEASE_DAY 20190215
 #define PRODUCT_IS_CONTROLLER 1
 #define PRODUCT_C8_SUPPORT 1 //程序code超过64k即无法使用c8芯片
-
 
 #if PRODUCT_C8_SUPPORT //使用c8芯片，节省成本
 #define ROM_FLASH_SIZE	     0x10000	//64K

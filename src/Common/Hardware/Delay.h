@@ -1,5 +1,5 @@
-#ifndef __delay_h__
-#define __delay_h__
+#ifndef __DELAY_H__
+#define __DELAY_H__
 
 void DelayMs(uint32_t nTime);
 u32 GetSysTick(void);

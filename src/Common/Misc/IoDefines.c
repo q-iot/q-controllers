@@ -1,3 +1,16 @@
+//--------------------------Q Controllers---------------------------//
+/*
+Q-Ctrl是一套基于事件的控制器框架，类比于MCV框架，Q-Ctrl用于协调
+存储（Data）、输入输出（IO）、控制器（Controller）三者的逻辑处理，
+简称DIC框架。
+Q-Ctrl基于stm32有大量的驱动代码可直接调用，也可以移植于其他单片机平台，
+无需操作系统的支持，在遵守控制器编程规则的情况下，可处理以往需要操作系统
+才能处理的复杂业务。
+By Karlno 酷享科技
+
+本文件定义了一套io预定义库，可被开发者用于其他stm32项目，减少代码开发量
+*/
+//------------------------------------------------------------------//
 #include "Drivers.h"
 #include "IoMap.c"
 
@@ -13,7 +26,7 @@ static const IO_IN_HAL_DEFINE gIoInDefs[IOIN_MAX]={
 {IOIN_PIO5,		GPI_A,  GPin5, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_PIO6,		GPI_A,  GPin6, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_PIO7,		GPI_A,  GPin7, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_IR_IN,		GPI_B,  GPin3, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI3_IRQn,EXTI_Pio_Priority},
+{IOIN_IR_IN,		GPI_A,  GPin3, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI3_IRQn,EXTI_Pio_Priority},
 
 };
 

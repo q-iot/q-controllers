@@ -1,7 +1,7 @@
 #include "SysDefines.h"
+#include "Product.h"
 
-
-#define It_Debug (void) //Debug
+#define It_Debug(format,...) //Debug
 
 void NMI_Handler(void)
 {}
@@ -269,12 +269,16 @@ void EXTI2_IRQHandler(void)
 
 void EXTI3_IRQHandler(void)
 {
-	It_Debug("--E3--\n\r");
+	Debug("--E3--\n\r");
 	
 	if(EXTI_GetITStatus(EXTI_Line3) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line3);	 		
-		PIO_EXTI_Handler(IOIN_PIO3,IOIN_ReadIoStatus(IOIN_PIO3));
+		//PIO_EXTI_Handler(IOIN_PIO3,IOIN_ReadIoStatus(IOIN_PIO3));
+
+#if ENABLE_IR_FUNC
+		IrPulseIn_ISR();		
+#endif		
 	}
 }
 
@@ -369,6 +373,7 @@ void EXTI9_5_IRQHandler(void)
 //void TIM1_CC_IRQHandler(void)
 //{}
 
+#if !ENABLE_IR_FUNC //红外接收需要消耗一个定时器
 void TIM2_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
@@ -378,6 +383,7 @@ void TIM2_IRQHandler(void)
 
 	}
 }
+#endif
 
 //void TIM3_IRQHandler(void) //pwm占用，用户不可用
 //{}
@@ -488,9 +494,10 @@ void USART3_IRQHandler(void)
 
 UsRecvFinish:
 		{
-			u8 *pData=Q_Malloc(gUs3RecvLen+2);//分配的时候会自动清零，所以末尾不用赋0了，在EventMemoryFree中释放
+			char *pData=Q_Malloc(gUs3RecvLen+2);//分配的时候会自动清零，所以末尾不用赋0了，在EventMemoryFree中释放
 			MemCpy(pData,Us3RecvBuf,gUs3RecvLen);
-			SendEvent(EBF_USER_COM_CMD,gUs3RecvLen,(void *)pData);
+			if(pData[gUs3RecvLen-1]=='\r') pData[--gUs3RecvLen]=0;
+			SendEvent(EBF_Q_COM_CMD,gUs3RecvLen,(void *)pData);
 			gUs3RecvLen=0;
 		}
 	}

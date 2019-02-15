@@ -1,5 +1,5 @@
-#ifndef SPI_FLASH_API_H
-#define SPI_FLASH_API_H
+#ifndef __SPI_FLASH_API_H__
+#define __SPI_FLASH_API_H__
 
 #include "SpiFlash_w25q.h"
 

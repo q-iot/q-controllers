@@ -1,5 +1,5 @@
-#ifndef SEC_FUNC_H
-#define SEC_FUNC_H
+#ifndef __SEC_FUNC_H__
+#define __SEC_FUNC_H__
 
 
 void SecFuncRcdDisp(void);

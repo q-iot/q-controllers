@@ -1,5 +1,5 @@
-#ifndef Q_QUEUE_H
-#define Q_QUEUE_H
+#ifndef __Q_QUEUE_H__
+#define __Q_QUEUE_H__
 
 
 void *Q_NewQueue(u16 ItemSize,u16 MaxNum);

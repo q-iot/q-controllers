@@ -1,5 +1,5 @@
-#ifndef ROM_FLASH_SAVE_H
-#define ROM_FLASH_SAVE_H
+#ifndef __ROM_FLASH_SAVE_H__
+#define __ROM_FLASH_SAVE_H__
 
 #include "Product.h"
 

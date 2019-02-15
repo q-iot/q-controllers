@@ -1,5 +1,5 @@
-#ifndef LIMIT_MARCO_H
-#define LIMIT_MARCO_H
+#ifndef __LIMIT_MARCO_H__
+#define __LIMIT_MARCO_H__
 
 #define NORMAL_STR_BYTES 32 //Ò»°ã×Ö·û´®³¤¶È
 
