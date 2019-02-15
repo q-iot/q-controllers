@@ -20,11 +20,14 @@ By Karlno 酷享科技
 
 #if 1
 static char CmdBuf[32]={0};
+
+//读取发送指令缓存，即最后一条指令
 const char *QCom_GetLastCmd(void)
 {
 	return CmdBuf;
 }
 
+//向qwifi发送获取变量值的指令
 void QCom_GetVarValue(const char *pTag)
 {
 	if(strlen(pTag)==VAR_TAG_LEN)
@@ -39,6 +42,7 @@ void QCom_GetVarValue(const char *pTag)
 	}
 }
 
+//向qwifi发送设置变量值的指令
 void QCom_SetVarValue(const char *pTag,int Value,bool Signed)
 {
 	if(strlen(pTag)==VAR_TAG_LEN)
@@ -54,6 +58,7 @@ void QCom_SetVarValue(const char *pTag,int Value,bool Signed)
 	}
 }
 
+//向qwifi发送字符串指令
 void QCom_SendStr(u32 StrId,const char *pStr)
 {
 	char *p=Q_Malloc(strlen(pStr)+16);
@@ -65,6 +70,7 @@ void QCom_SendStr(u32 StrId,const char *pStr)
 	Q_Free(p);
 }
 
+//向qwifi发送系统消息指令
 void QCom_SendMsg(u8 Flag,const char *pMsg)
 {
 	char *p=Q_Malloc(strlen(pMsg)+16);
@@ -76,6 +82,7 @@ void QCom_SendMsg(u8 Flag,const char *pMsg)
 	Q_Free(p);
 }
 
+//向qwifi发送状态获取指令
 void QCom_SendSta(void)
 {
 	CmdBuf[0]=0;
@@ -83,6 +90,7 @@ void QCom_SendSta(void)
 	Com3_Send(strlen(CmdBuf),CmdBuf);
 }
 
+//向qwifi发送重启指令
 void QCom_ResetQwifi(void)
 {
 	CmdBuf[0]=0;
@@ -91,10 +99,10 @@ void QCom_ResetQwifi(void)
 }
 #endif
 
-//qwifi回复解析
+//qwifi回复字符串的解析函数
 static void QCom_Res_Handler(u16 Num,const char **pCmd,const char *pStr)
 {
-	if(strcmp((void *)pCmd[0],"#rvar")==0)
+	if(strcmp((void *)pCmd[0],"#rvar")==0)//回复了变量指令
 	{
 		if(Num==3)//set return
 		{
@@ -134,19 +142,19 @@ static void QCom_Res_Handler(u16 Num,const char **pCmd,const char *pStr)
 			Debug("VAR RET ERROR NUM = %u\n\r",Num);
 		}
 	}
-	else if(strcmp((void *)pCmd[0],"#rstr")==0)
+	else if(strcmp((void *)pCmd[0],"#rstr")==0)//回复了字符串指令
 	{
 		if(Num==2 && pCmd[1][0]=='0') SendEvent(EBF_QWIFI_STR_RET,0,NULL);
 		else if(Num==2 && pCmd[1][0]!='0') SendEvent(EBF_QWIFI_STR_RET,1,NULL);
 		else Debug("STR RET ERROR NUM = %u\n\r",Num);
 	}
-	else if(strcmp((void *)pCmd[0],"#rmsg")==0)
+	else if(strcmp((void *)pCmd[0],"#rmsg")==0)//回复了系统消息指令
 	{
 		if(Num==2 && pCmd[1][0]=='0') SendEvent(EBF_QWIFI_MSG_RET,0,NULL);
 		else if(Num==2 && pCmd[1][0]!='0') SendEvent(EBF_QWIFI_MSG_RET,1,NULL);
 		else Debug("MSG RET ERROR NUM = %u\n\r",Num);
 	}
-	else if(strcmp((void *)pCmd[0],"#rsta")==0)
+	else if(strcmp((void *)pCmd[0],"#rsta")==0)//回复了状态指令
 	{
 		if(Num==3 && pCmd[1][0]=='0')
 		{
@@ -160,7 +168,7 @@ static void QCom_Res_Handler(u16 Num,const char **pCmd,const char *pStr)
 			Debug("STA RET ERROR NUM = %u\n\r",Num);
 		}		
 	}
-	else if(strcmp((void *)pCmd[0],"#rrst")==0)
+	else if(strcmp((void *)pCmd[0],"#rrst")==0)//回复了重启指令
 	{
 		if(Num==2 && pCmd[1][0]=='0') SendEvent(EBF_QWIFI_STATE,QSE_RESET,"rst");
 		else Debug("RST RET ERROR\n\r");
@@ -171,7 +179,7 @@ static void QCom_Res_Handler(u16 Num,const char **pCmd,const char *pStr)
 	}
 }
 
-//qwifi串口字符串解析
+//qwifi串口字符串解析函数
 static EVENT_HANDLER_RESUTL QCom_Cmd_EF(EVENT_BIT_FLAG Event,int Len,const char *pStr)
 {
 	char *pCmd[6];
@@ -181,14 +189,14 @@ static EVENT_HANDLER_RESUTL QCom_Cmd_EF(EVENT_BIT_FLAG Event,int Len,const char 
 	pBuf=Q_Malloc(Len+2);
 	Num=StrCmdParse(pStr,pCmd,pBuf,TRUE);//解析指令和参数
 
-	for(i=0;i<Num;i++)
+	for(i=0;i<Num;i++)//打印收取到的参数
 	{
 		Debug("[%u]%s\n\r",i,pCmd[i]);
 	}
 
 	if(pCmd[0][0]!='#') goto Finish;
 
-	if(strlen(pCmd[0])==5)
+	if(strlen(pCmd[0])==5)//回包的命令都是5个字节，主包的是4个字节
 	{
 		QCom_Res_Handler(Num,pCmd,pStr);
 		goto Finish;
@@ -200,28 +208,35 @@ static EVENT_HANDLER_RESUTL QCom_Cmd_EF(EVENT_BIT_FLAG Event,int Len,const char 
 	{
 		//do nothing
 	}
-	else if(strcmp((void *)pCmd[0],"#rdy")==0)
+	else if(strcmp((void *)pCmd[0],"#rdy")==0)//qwifi启动
 	{
 		SendEvent(EBF_QWIFI_STATE,QSE_READY,"rdy");
 	}
-	else if(strcmp((void *)pCmd[0],"#con")==0)
+	else if(strcmp((void *)pCmd[0],"#con")==0)//qwifi连接ok
 	{
 		SendEvent(EBF_QWIFI_STATE,QSE_CONNECTING,"con");
 	}
-	else if(strcmp((void *)pCmd[0],"#dis")==0)
+	else if(strcmp((void *)pCmd[0],"#dis")==0)//qwifi断开连接
 	{
 		SendEvent(EBF_QWIFI_STATE,QSE_DISCONNECT,"dis");
 	}
-	else if(strcmp((void *)pCmd[0],"#key")==0)
+	else if(strcmp((void *)pCmd[0],"#key")==0)//qwifi上app的按钮被按下
 	{
-		SendEvent(EBF_QWIFI_KEY,Str2Uint(pCmd[1]),NULL);
+		if(Num==3) 
+		{
+			SendEvent(EBF_QWIFI_KEY,Str2Uint(pCmd[2]),(void *)Str2Uint(pCmd[1]));//强制转换类型
+		}
+		else
+		{
+			Debug("QCOM KEY CMD ERROR %s\n\r",pCmd[0]);
+		}
 	}
-	else if(strcmp((void *)pCmd[0],"#msg")==0)
+	else if(strcmp((void *)pCmd[0],"#msg")==0)//qwifi收到系统消息，转发给qcom
 	{
 		const char *pMsg=&pStr[5];
 		SendEvent(EBF_QWIFI_MSG,strlen(pMsg),(void *)pMsg);
 	}
-	else if(strcmp((void *)pCmd[0],"#var")==0)
+	else if(strcmp((void *)pCmd[0],"#var")==0)//qwifi改变了变量，发给qcom
 	{
 		if(Num==3 && strlen(pCmd[1])==VAR_TAG_LEN)
 		{

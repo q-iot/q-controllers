@@ -22,17 +22,17 @@ typedef enum{
 	EBF_INIT,
 	
 	//数据传入
-	EBF_Q_COM_CMD,//与qwifi连接的串口有命令进来
-	EBF_QWIFI_STATE,//
-	EBF_QWIFI_KEY,//
-	EBF_QWIFI_VAR,//
-	EBF_QWIFI_MSG,//
-	EBF_QWIFI_READ_VAR_RET,
-	EBF_QWIFI_READ_VAR_ERROR,
-	EBF_QWIFI_SET_VAR_RET,
-	EBF_QWIFI_SET_VAR_ERROR,
-	EBF_QWIFI_MSG_RET,//
-	EBF_QWIFI_STR_RET,//
+	EBF_Q_COM_CMD,//与qwifi连接的串口有字符串指令进来
+	EBF_QWIFI_STATE,//qwifi的状态返回
+	EBF_QWIFI_KEY,//qwifi的app上的按钮被按下
+	EBF_QWIFI_VAR,//qwifi的变量改变了
+	EBF_QWIFI_MSG,//qwifi收到系统消息
+	EBF_QWIFI_READ_VAR_RET,//读取qwifi的变量返回结果
+	EBF_QWIFI_READ_VAR_ERROR,//读取qwifi的变量返回错误
+	EBF_QWIFI_SET_VAR_RET,//设置qwifi的变量返回结果
+	EBF_QWIFI_SET_VAR_ERROR,//设置qwifi的变量返回结果
+	EBF_QWIFI_MSG_RET,//发送系统消息给qwifi返回结果
+	EBF_QWIFI_STR_RET,//发送字符串给qwifi返回结果
 
 
 	

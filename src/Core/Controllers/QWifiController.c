@@ -16,7 +16,9 @@ By Karlno 酷享科技
 
 #include "SysDefines.h"
 #include "Product.h"
+#include "StrParse.h"
 
+//收到qwifi状态事件
 static EVENT_HANDLER_RESUTL QWIFI_State_EF(EVENT_BIT_FLAG Event,QWIFI_STATE State,const char *pCmd)
 {
 	Debug("Call %s [%u]%s\n\r",__FUNCTION__,State,pCmd);
@@ -24,13 +26,15 @@ static EVENT_HANDLER_RESUTL QWIFI_State_EF(EVENT_BIT_FLAG Event,QWIFI_STATE Stat
 	return EFR_OK;
 }
 
-static EVENT_HANDLER_RESUTL QWIFI_Key_EF(EVENT_BIT_FLAG Event,u32 Key,void *p)
+//收到qwifi的app按钮事件
+static EVENT_HANDLER_RESUTL QWIFI_Key_EF(EVENT_BIT_FLAG Event,u32 Key,u32 DevID)
 {
-	Debug("Call %s %u\n\r",__FUNCTION__,Key);
+	Debug("Call %s %u Dev%u\n\r",__FUNCTION__,Key,DevID);
 	Debug("LastCmd:%s\n\r",QCom_GetLastCmd());
 	return EFR_OK;
 }
 
+//收到qwifi系统消息事件
 static EVENT_HANDLER_RESUTL QWIFI_Message_EF(EVENT_BIT_FLAG Event,u32 Len,const char *pMsg)
 {
 	Debug("Call %s [%u]%s\n\r",__FUNCTION__,Len,pMsg);
@@ -38,6 +42,7 @@ static EVENT_HANDLER_RESUTL QWIFI_Message_EF(EVENT_BIT_FLAG Event,u32 Len,const 
 	return EFR_OK;
 }
 
+//发出系统消息，收到回复
 static EVENT_HANDLER_RESUTL QWIFI_Message_Res_EF(EVENT_BIT_FLAG Event,u32 Len,const char *pMsg)
 {
 	Debug("Event %u call %s [%u]%s\n\r",Event,__FUNCTION__,Len,pMsg);
@@ -45,6 +50,7 @@ static EVENT_HANDLER_RESUTL QWIFI_Message_Res_EF(EVENT_BIT_FLAG Event,u32 Len,co
 	return EFR_OK;
 }
 
+//收到qwifi变量事件
 static EVENT_HANDLER_RESUTL QWIFI_Varible_EF(EVENT_BIT_FLAG Event,int Value,const char *pVarTag)
 {
 	Debug("Call %s [%s]=%d\n\r",__FUNCTION__,pVarTag,Value);
@@ -52,6 +58,7 @@ static EVENT_HANDLER_RESUTL QWIFI_Varible_EF(EVENT_BIT_FLAG Event,int Value,cons
 	return EFR_OK;
 }
 
+//发出变量指令，收到回复
 static EVENT_HANDLER_RESUTL QWIFI_Varible_Res_EF(EVENT_BIT_FLAG Event,int Value,const char *pVarTag)
 {
 	Debug("Event %u call %s [%s]=%d\n\r",Event,__FUNCTION__,pVarTag,Value);

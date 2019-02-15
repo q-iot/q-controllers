@@ -82,7 +82,7 @@ void SetEventFlag(EVENT_BIT_FLAG Event)
 	}
 }
 
-//调用一次，则发送一次事件处理
+//调用一次，则发送一次事件处理，只有参数本身会被传递，参数指向的内容不可知
 void SendEvent(EVENT_BIT_FLAG Event,s32 S32Param,void *pParam)
 {
 	//Debug("E%u ",Event);
