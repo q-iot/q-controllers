@@ -9,17 +9,17 @@ typedef enum{
 	EBF_NEXT_QUICK_FUNC,
 	
 	//硬件中断事件
-	EBF_KEY,//key input
-	EBF_PIO_IN,//io input
-	EBF_SEC_FUNC,
-	EBF_30SEC,
-	EBF_TIM2,
-	EBF_TIM4,
-	EBF_IR,
+	EBF_KEY,//按键事件
+	EBF_PIO_IN,//io事件
+	EBF_SEC_FUNC,//每秒事件
+	EBF_30SEC,//30秒事件
+	EBF_TIM2,//定时器2到期事件
+	EBF_TIM4,//定时器2到期事件
+	EBF_IR,//红外接收事件
 
 	//系统事件
-	EBF_IDLE,
-	EBF_INIT,
+	EBF_IDLE,//系统闲循环
+	EBF_INIT,//系统初始化完成
 	
 	//数据传入
 	EBF_Q_COM_CMD,//与qwifi连接的串口有字符串指令进来
