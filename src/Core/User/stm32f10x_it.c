@@ -111,7 +111,7 @@ void SysTick_Handler(void)
 		volatile SYS_TIMER_RCD *pSysTimer=gpSysTimerRcd;
 		u16 i;	
 
-		for(i=0;i<WAVER_IO_NUM;i++){if(gKeyDelay[i]) gKeyDelay[i]--;}
+		for(i=0;i<IOIN_MAX;i++){if(gKeyDelay[i]) gKeyDelay[i]--;}
 		
 #if 1
 		{//模拟rtc中断，如有硬件rtc支持，可迁移
