@@ -26,7 +26,7 @@ static const IO_IN_HAL_DEFINE gIoInDefs[IOIN_MAX]={
 {IOIN_PIO5,		GPI_A,  GPin5, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_PIO6,		GPI_A,  GPin6, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_PIO7,		GPI_A,  GPin7, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
-{IOIN_IR_IN,		GPI_A,  GPin3, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI3_IRQn,EXTI_Pio_Priority},
+{IOIN_IR_IN,		GPI_A,  GPin11, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI3_IRQn,EXTI_Pio_Priority},
 
 };
 
@@ -35,7 +35,7 @@ static const IO_OUT_HAL_DEFINE gIoOutDefs[IOOUT_MAX]={
 {IOOUT_LED2,			GPI_B,	GPin9,		GPIO_Mode_Out_PP,TRUE},
 {IOOUT_FLASH_CS,	GPI_A,	GPin8,		GPIO_Mode_Out_PP,TRUE},//flash cs
 {IOOUT_FLASH_WP,	GPI_B,	GPin12,	GPIO_Mode_Out_PP,FALSE},//flash wp
-{IOOUT_IR_OUT,		GPI_B,	GPin4,		GPIO_Mode_Out_PP,FALSE},//ir out
+{IOOUT_IR_OUT,		GPI_A,	GPin12,		GPIO_Mode_Out_PP,FALSE},//ir out
 
 };
 

@@ -101,7 +101,7 @@ void __inline SecTick_Handler(void)// 1s进一次
 //定时器变量引用
 #define KEY_MAX_PUSH_DELAY_MS 20000
 #define KEY_FILTER_DELAY 50
-static volatile u32 gKeyDelay[WAVER_IO_NUM]={0,0,0,0,0,0,0,0};//防止毛刺
+static volatile u32 gKeyDelay[IOIN_MAX]={0};//防止毛刺
 extern volatile u32 gSysTick;//系统定时器
 extern volatile SYS_TIMER_RCD gpSysTimerRcd[SYS_TIMER_MAX_NUM];
 void SysTick_Handler(void)
@@ -241,7 +241,7 @@ void EXTI0_IRQHandler(void)
 	{  
 		EXTI_ClearITPendingBit(EXTI_Line0);	
 		//PIO_EXTI_Handler(IOIN_PIO0,IOIN_ReadIoStatus(IOIN_PIO0));//如果是数字io，调用这个
-		Key_EXTI_Handler(IOIN_PIO0,IOIN_ReadIoStatus(IOIN_PIO0),TRUE);//如果是key，调用这个
+		//Key_EXTI_Handler(IOIN_PIO0,IOIN_ReadIoStatus(IOIN_PIO0),TRUE);//如果是key，调用这个
 	}
 }
 
@@ -252,7 +252,7 @@ void EXTI1_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line1) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line1);
-		PIO_EXTI_Handler(IOIN_PIO1,IOIN_ReadIoStatus(IOIN_PIO1));
+
 	}
 }
 
