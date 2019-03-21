@@ -228,8 +228,8 @@ static __inline void Key_EXTI_Handler(IO_IN_DEFS Io,u8 State,bool IsPullUp)
 		if(gKeyDelay[Io] && gKeyDelay[Io]<Ms2Sch(KEY_MAX_PUSH_DELAY_MS-KEY_FILTER_DELAY))//200ºÁÃëÊÇÔÓ²¨¹ýÂË
 		{
 			SendEvent(EBF_KEY,((KEY_MAX_PUSH_DELAY_MS-Sch2Ms(gKeyDelay[Io]))<<16)|Io,NULL);
-			gKeyDelay[Io]=0;
 		}
+		gKeyDelay[Io]=0;
 	}			
 }
 

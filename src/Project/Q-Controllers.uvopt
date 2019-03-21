@@ -192,7 +192,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_adc.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_adc.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_adc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -205,7 +205,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_exti.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_exti.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_exti.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -218,7 +218,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_flash.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_flash.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_flash.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -231,7 +231,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_gpio.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_gpio.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_gpio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -244,7 +244,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_iwdg.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_iwdg.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_iwdg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -257,7 +257,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_spi.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_spi.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_spi.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -270,7 +270,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_tim.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_tim.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_tim.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -283,7 +283,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_usart.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_usart.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_usart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -296,7 +296,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_rcc.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_rcc.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_rcc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -309,7 +309,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\system_stm32f10x.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\system_stm32f10x.c</PathWithFileName>
       <FilenameWithoutPath>system_stm32f10x.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -322,7 +322,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\core_cm3.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\core_cm3.c</PathWithFileName>
       <FilenameWithoutPath>core_cm3.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -335,7 +335,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\misc.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\misc.c</PathWithFileName>
       <FilenameWithoutPath>misc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -348,7 +348,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Lib\src\stm32f10x_dma.c</PathWithFileName>
+      <PathWithFileName>..\Common\Lib\src\stm32f10x_dma.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_dma.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -369,7 +369,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\Delay.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\Delay.c</PathWithFileName>
       <FilenameWithoutPath>Delay.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -382,7 +382,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\Adc.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\Adc.c</PathWithFileName>
       <FilenameWithoutPath>Adc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -395,7 +395,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\Spi.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\Spi.c</PathWithFileName>
       <FilenameWithoutPath>Spi.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -408,7 +408,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\Time.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\Time.c</PathWithFileName>
       <FilenameWithoutPath>Time.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -421,7 +421,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\Uart.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\Uart.c</PathWithFileName>
       <FilenameWithoutPath>Uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -434,7 +434,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\Dht11.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\Dht11.c</PathWithFileName>
       <FilenameWithoutPath>Dht11.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -447,7 +447,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\SpiFlash_w25q.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\SpiFlash_w25q.c</PathWithFileName>
       <FilenameWithoutPath>SpiFlash_w25q.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -460,7 +460,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\RomFlash.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\RomFlash.c</PathWithFileName>
       <FilenameWithoutPath>RomFlash.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -473,7 +473,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\Ir.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\Ir.c</PathWithFileName>
       <FilenameWithoutPath>Ir.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -486,7 +486,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\IrOut.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\IrOut.c</PathWithFileName>
       <FilenameWithoutPath>IrOut.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -499,7 +499,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Hardware\StmDevelop.c</PathWithFileName>
+      <PathWithFileName>..\Common\Hardware\StmDevelop.c</PathWithFileName>
       <FilenameWithoutPath>StmDevelop.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -520,7 +520,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Misc\PublicFunc.c</PathWithFileName>
+      <PathWithFileName>..\Common\Misc\PublicFunc.c</PathWithFileName>
       <FilenameWithoutPath>PublicFunc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -533,8 +533,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\SomeFunc.c</PathWithFileName>
-      <FilenameWithoutPath>SomeFunc.c</FilenameWithoutPath>
+      <PathWithFileName>..\Common\Misc\StrParse.c</PathWithFileName>
+      <FilenameWithoutPath>StrParse.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -546,8 +546,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Misc\StrParse.c</PathWithFileName>
-      <FilenameWithoutPath>StrParse.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\User\SomeFunc.c</PathWithFileName>
+      <FilenameWithoutPath>SomeFunc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -567,7 +567,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Data\RomFlashSave.c</PathWithFileName>
+      <PathWithFileName>..\Core\Data\RomFlashSave.c</PathWithFileName>
       <FilenameWithoutPath>RomFlashSave.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -588,7 +588,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\SysHandler\NextLoopFunc.c</PathWithFileName>
+      <PathWithFileName>..\Common\SysHandler\NextLoopFunc.c</PathWithFileName>
       <FilenameWithoutPath>NextLoopFunc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -601,7 +601,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\SysHandler\EventInHandler.c</PathWithFileName>
+      <PathWithFileName>..\Common\SysHandler\EventInHandler.c</PathWithFileName>
       <FilenameWithoutPath>EventInHandler.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -614,7 +614,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\SysHandler\ControllerHandler.c</PathWithFileName>
+      <PathWithFileName>..\Common\SysHandler\ControllerHandler.c</PathWithFileName>
       <FilenameWithoutPath>ControllerHandler.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -627,7 +627,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\SysTimer\MsFunc.c</PathWithFileName>
+      <PathWithFileName>..\Common\SysTimer\MsFunc.c</PathWithFileName>
       <FilenameWithoutPath>MsFunc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -640,7 +640,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\SysTimer\SecFunc.c</PathWithFileName>
+      <PathWithFileName>..\Common\SysTimer\SecFunc.c</PathWithFileName>
       <FilenameWithoutPath>SecFunc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -653,7 +653,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\SysTimer\SysTimer.c</PathWithFileName>
+      <PathWithFileName>..\Common\SysTimer\SysTimer.c</PathWithFileName>
       <FilenameWithoutPath>SysTimer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -666,7 +666,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Q_Lib\Q_Heap.c</PathWithFileName>
+      <PathWithFileName>..\Common\Q_Lib\Q_Heap.c</PathWithFileName>
       <FilenameWithoutPath>Q_Heap.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -679,7 +679,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Q_Lib\Q_Queue.c</PathWithFileName>
+      <PathWithFileName>..\Common\Q_Lib\Q_Queue.c</PathWithFileName>
       <FilenameWithoutPath>Q_Queue.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -700,8 +700,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Controllers\NewController.c</PathWithFileName>
-      <FilenameWithoutPath>NewController.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\Controllers\QComController.c</PathWithFileName>
+      <FilenameWithoutPath>QComController.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -713,8 +713,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Controllers\TestController.c</PathWithFileName>
-      <FilenameWithoutPath>TestController.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\Controllers\QWifiController.c</PathWithFileName>
+      <FilenameWithoutPath>QWifiController.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -726,8 +726,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Controllers\QComController.c</PathWithFileName>
-      <FilenameWithoutPath>QComController.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\Controllers\NewController.c</PathWithFileName>
+      <FilenameWithoutPath>NewController.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -739,8 +739,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Controllers\QWifiController.c</PathWithFileName>
-      <FilenameWithoutPath>QWifiController.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\Controllers\TestController.c</PathWithFileName>
+      <FilenameWithoutPath>TestController.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -755,13 +755,13 @@
     <File>
       <GroupNumber>7</GroupNumber>
       <FileNumber>41</FileNumber>
-      <FileType>2</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\startup_stm32f10x_md.s</PathWithFileName>
-      <FilenameWithoutPath>startup_stm32f10x_md.s</FilenameWithoutPath>
+      <PathWithFileName>..\Common\Misc\IoDefines.c</PathWithFileName>
+      <FilenameWithoutPath>IoDefines.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -773,7 +773,7 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\main.c</PathWithFileName>
+      <PathWithFileName>..\Core\User\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -781,13 +781,13 @@
     <File>
       <GroupNumber>7</GroupNumber>
       <FileNumber>43</FileNumber>
-      <FileType>1</FileType>
+      <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\SysCmdHandler.c</PathWithFileName>
-      <FilenameWithoutPath>SysCmdHandler.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\User\startup_stm32f10x_md.s</PathWithFileName>
+      <FilenameWithoutPath>startup_stm32f10x_md.s</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -799,8 +799,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Common\Misc\IoDefines.c</PathWithFileName>
-      <FilenameWithoutPath>IoDefines.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\User\stm32f10x_it.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f10x_it.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -812,8 +812,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\stm32f10x_it.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f10x_it.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\User\SysCmdHandler.c</PathWithFileName>
+      <FilenameWithoutPath>SysCmdHandler.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

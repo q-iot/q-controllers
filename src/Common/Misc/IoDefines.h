@@ -11,6 +11,7 @@ typedef enum{
 	IOIN_PIO6,
 	IOIN_PIO7,
 	IOIN_IR_IN,
+	IOIN_USER_KEY,
 	
 	IOIN_MAX
 }IO_IN_DEFS;

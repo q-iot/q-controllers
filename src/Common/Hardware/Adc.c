@@ -65,14 +65,6 @@ void Adc1_Rand_Init(u8 UseAio)
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_ADC1, ENABLE);
 
-	//PB0设置为模拟通道8                   
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-	gAdcChanNum=2;
-	
 	if(ReadBit(UseAio,0))
 	{
 	    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
@@ -109,6 +101,14 @@ void Adc1_Rand_Init(u8 UseAio)
 	    UseAdcIoNum++;
 	}	
 
+	//PB0设置为模拟通道8                   
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+	gAdcChanNum=2;//默认加了pb0和cpu temp
+	
 	Adc1_DmaConfig(gAdcChanVals,ADC_SAMPLE_NUM,gAdcChanNum+UseAdcIoNum);//初始化DMA
 	
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6); 
@@ -165,7 +165,7 @@ void Adc1_Rand_Init(u8 UseAio)
 }
 
 //从dma中读取channal的采样值
-//chan从1开始
+//channal从1开始，channal序号根据初始化顺序来，默认pb0
 u16 Adc1_GetVal(u8 Chan)
 {
 	u32 Sum=0;
@@ -202,7 +202,7 @@ u16 Adc1_GetValByAio(u8 AioID)
 	return Adc1_GetVal(gAdcIoChMap[AioID]);
 }
 
-//从channal 1读取数据
+//从channal 1读取数据，channal序号根据初始化顺序来，默认pb0
 u32 GetAdcRand(void)
 {
 	u32 Num=0;

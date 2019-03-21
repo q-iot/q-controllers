@@ -367,7 +367,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Common\Hardware;..\..\Common\Lib;..\..\Common\Lib\inc;..\..\Common\Storage;..\..\Common\Misc;..\..\Common\SysHandler;..\..\Common\SysTimer;..\..\Common\Include;..\..\Common\Q_Lib;..\Controllers;..\Include;..\User;..\Data</IncludePath>
+              <IncludePath>..\Common\Hardware;..\Common\Lib;..\Common\Lib\inc;..\Common\Storage;..\Common\Misc;..\Common\SysHandler;..\Common\SysTimer;..\Common\Include;..\Common\Q_Lib;..\Core\Controllers;..\Core\Include;..\Core\User;..\Core\Data</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -413,67 +413,67 @@
             <File>
               <FileName>stm32f10x_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_adc.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_adc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_exti.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_exti.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_exti.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_flash.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_flash.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_gpio.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_iwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_iwdg.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_iwdg.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_spi.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_spi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_tim.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_tim.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_usart.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_usart.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_rcc.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_rcc.c</FilePath>
             </File>
             <File>
               <FileName>system_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\system_stm32f10x.c</FilePath>
+              <FilePath>..\Common\Lib\system_stm32f10x.c</FilePath>
             </File>
             <File>
               <FileName>core_cm3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\core_cm3.c</FilePath>
+              <FilePath>..\Common\Lib\core_cm3.c</FilePath>
             </File>
             <File>
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\misc.c</FilePath>
+              <FilePath>..\Common\Lib\src\misc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Lib\src\stm32f10x_dma.c</FilePath>
+              <FilePath>..\Common\Lib\src\stm32f10x_dma.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -483,57 +483,57 @@
             <File>
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\Delay.c</FilePath>
+              <FilePath>..\Common\Hardware\Delay.c</FilePath>
             </File>
             <File>
               <FileName>Adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\Adc.c</FilePath>
+              <FilePath>..\Common\Hardware\Adc.c</FilePath>
             </File>
             <File>
               <FileName>Spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\Spi.c</FilePath>
+              <FilePath>..\Common\Hardware\Spi.c</FilePath>
             </File>
             <File>
               <FileName>Time.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\Time.c</FilePath>
+              <FilePath>..\Common\Hardware\Time.c</FilePath>
             </File>
             <File>
               <FileName>Uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\Uart.c</FilePath>
+              <FilePath>..\Common\Hardware\Uart.c</FilePath>
             </File>
             <File>
               <FileName>Dht11.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\Dht11.c</FilePath>
+              <FilePath>..\Common\Hardware\Dht11.c</FilePath>
             </File>
             <File>
               <FileName>SpiFlash_w25q.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\SpiFlash_w25q.c</FilePath>
+              <FilePath>..\Common\Hardware\SpiFlash_w25q.c</FilePath>
             </File>
             <File>
               <FileName>RomFlash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\RomFlash.c</FilePath>
+              <FilePath>..\Common\Hardware\RomFlash.c</FilePath>
             </File>
             <File>
               <FileName>Ir.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\Ir.c</FilePath>
+              <FilePath>..\Common\Hardware\Ir.c</FilePath>
             </File>
             <File>
               <FileName>IrOut.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\IrOut.c</FilePath>
+              <FilePath>..\Common\Hardware\IrOut.c</FilePath>
             </File>
             <File>
               <FileName>StmDevelop.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Hardware\StmDevelop.c</FilePath>
+              <FilePath>..\Common\Hardware\StmDevelop.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -543,17 +543,17 @@
             <File>
               <FileName>PublicFunc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Misc\PublicFunc.c</FilePath>
-            </File>
-            <File>
-              <FileName>SomeFunc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\SomeFunc.c</FilePath>
+              <FilePath>..\Common\Misc\PublicFunc.c</FilePath>
             </File>
             <File>
               <FileName>StrParse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Misc\StrParse.c</FilePath>
+              <FilePath>..\Common\Misc\StrParse.c</FilePath>
+            </File>
+            <File>
+              <FileName>SomeFunc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\User\SomeFunc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -563,7 +563,7 @@
             <File>
               <FileName>RomFlashSave.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Data\RomFlashSave.c</FilePath>
+              <FilePath>..\Core\Data\RomFlashSave.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -573,42 +573,42 @@
             <File>
               <FileName>NextLoopFunc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysHandler\NextLoopFunc.c</FilePath>
+              <FilePath>..\Common\SysHandler\NextLoopFunc.c</FilePath>
             </File>
             <File>
               <FileName>EventInHandler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysHandler\EventInHandler.c</FilePath>
+              <FilePath>..\Common\SysHandler\EventInHandler.c</FilePath>
             </File>
             <File>
               <FileName>ControllerHandler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysHandler\ControllerHandler.c</FilePath>
+              <FilePath>..\Common\SysHandler\ControllerHandler.c</FilePath>
             </File>
             <File>
               <FileName>MsFunc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysTimer\MsFunc.c</FilePath>
+              <FilePath>..\Common\SysTimer\MsFunc.c</FilePath>
             </File>
             <File>
               <FileName>SecFunc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysTimer\SecFunc.c</FilePath>
+              <FilePath>..\Common\SysTimer\SecFunc.c</FilePath>
             </File>
             <File>
               <FileName>SysTimer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\SysTimer\SysTimer.c</FilePath>
+              <FilePath>..\Common\SysTimer\SysTimer.c</FilePath>
             </File>
             <File>
               <FileName>Q_Heap.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Q_Lib\Q_Heap.c</FilePath>
+              <FilePath>..\Common\Q_Lib\Q_Heap.c</FilePath>
             </File>
             <File>
               <FileName>Q_Queue.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Common\Q_Lib\Q_Queue.c</FilePath>
+              <FilePath>..\Common\Q_Lib\Q_Queue.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -616,24 +616,24 @@
           <GroupName>Controllers</GroupName>
           <Files>
             <File>
-              <FileName>NewController.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Controllers\NewController.c</FilePath>
-            </File>
-            <File>
-              <FileName>TestController.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Controllers\TestController.c</FilePath>
-            </File>
-            <File>
               <FileName>QComController.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Controllers\QComController.c</FilePath>
+              <FilePath>..\Core\Controllers\QComController.c</FilePath>
             </File>
             <File>
               <FileName>QWifiController.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Controllers\QWifiController.c</FilePath>
+              <FilePath>..\Core\Controllers\QWifiController.c</FilePath>
+            </File>
+            <File>
+              <FileName>NewController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Controllers\NewController.c</FilePath>
+            </File>
+            <File>
+              <FileName>TestController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Controllers\TestController.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -641,29 +641,29 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f10x_md.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\User\startup_stm32f10x_md.s</FilePath>
+              <FileName>IoDefines.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\Misc\IoDefines.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\main.c</FilePath>
+              <FilePath>..\Core\User\main.c</FilePath>
             </File>
             <File>
-              <FileName>SysCmdHandler.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\SysCmdHandler.c</FilePath>
-            </File>
-            <File>
-              <FileName>IoDefines.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Common\Misc\IoDefines.c</FilePath>
+              <FileName>startup_stm32f10x_md.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\Core\User\startup_stm32f10x_md.s</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\stm32f10x_it.c</FilePath>
+              <FilePath>..\Core\User\stm32f10x_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>SysCmdHandler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\User\SysCmdHandler.c</FilePath>
             </File>
           </Files>
         </Group>

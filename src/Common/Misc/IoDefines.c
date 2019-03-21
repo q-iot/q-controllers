@@ -27,7 +27,7 @@ static const IO_IN_HAL_DEFINE gIoInDefs[IOIN_MAX]={
 {IOIN_PIO6,		GPI_A,  GPin6, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_PIO7,		GPI_A,  GPin7, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_IR_IN,		GPI_A,  GPin11, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI3_IRQn,EXTI_Pio_Priority},
-
+{IOIN_USER_KEY,		GPI_B,  GPin1, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI1_IRQn,EXTI_Pio_Priority},
 };
 
 static const IO_OUT_HAL_DEFINE gIoOutDefs[IOOUT_MAX]={
@@ -138,6 +138,7 @@ void IoDefinesInit(void)
 	NVIC_Config();
 }
 
+//输出io的api
 void IOOUT_SetIoStatus(IO_OUT_DEFS Io,bool IsHigh)
 {
 	if(IsHigh)
@@ -151,6 +152,7 @@ u8 IOOUT_ReadIoStatus(IO_OUT_DEFS Io)
 	return GPIO_ReadOutputDataBit(gGroupMap[gpIoOutDefs[Io].Group].GpioGroup,gPinMap[gpIoOutDefs[Io].Pin].GpioPin);
 }
 
+//输入io的api
 void IOIN_SetIoStatus(IO_IN_DEFS Io,bool IsHigh)
 {
 	if(IsHigh)
@@ -164,6 +166,7 @@ u8 IOIN_ReadIoStatus(IO_IN_DEFS Io)
 	return GPIO_ReadInputDataBit(gGroupMap[gpIoInDefs[Io].Group].GpioGroup,gPinMap[gpIoInDefs[Io].Pin].GpioPin);
 }
 
+//io中断控制api
 void IOIN_OpenExti(IO_IN_DEFS Io)
 {
 	EXTI->IMR |= gPinMap[gpIoInDefs[Io].Pin].ExtiLine;
