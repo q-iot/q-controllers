@@ -50,7 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-/src/Core/Project/Output
-/src/Core/Project/*.Administrator
-/src/Core/Project/*.lst
-/src/Core/Project/JLinkLog.txt
+/src/Project/Output
+/src/Project/*.Administrator
+/src/Project/*.lst
+/src/Project/JLinkLog.txt
