@@ -16,7 +16,7 @@ By Karlno 酷享科技
 #include "IrOut.h"
 #include "Q_Heap.h"
 
-#define DECODE_38K_MYSELF 1//自己解码38kHz的脉冲
+#define DECODE_38K_MYSELF 0//自己解码38kHz的脉冲
 static u32 gLast13usPluseTimeCnt=0;//38k脉冲最后一个脉冲点的时间记数
 
 //硬件参数配置

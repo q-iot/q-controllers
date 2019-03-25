@@ -1,6 +1,6 @@
 #include "Drivers.h"
 
-#if 0//定时器+io的形式
+#if 1//定时器+io的形式
 #define IrPluseGen_ISR TIM3_IRQHandler
 #define IrPluseTimerSet Tim3_Set
 #define IrPluseTimerID TIM3

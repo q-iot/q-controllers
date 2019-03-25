@@ -515,6 +515,7 @@ void EXTI15_10_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line11) != RESET)
 	{	
 		EXTI_ClearITPendingBit(EXTI_Line11);
+		IrPulseIn_ISR();
 	}
 	
 	if(EXTI_GetITStatus(EXTI_Line12) != RESET)

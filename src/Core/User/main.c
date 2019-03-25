@@ -137,7 +137,9 @@ int main(void)
 #endif
 
 	//¿ªÖÐ¶Ï
+	//IOIN_OpenExti(IOIN_IR_IN);
 	IOIN_OpenExti(IOIN_PIO0);
+	
 	
 	EventStateHandler();
 
