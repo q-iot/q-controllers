@@ -31,7 +31,7 @@ void IrPluseGen_ISR(void)
 //Val∑«¡„ ±∑¢ÀÕir
 void SetSendIrData(u8 Val) 
 {
-	IO7_PWM_CONFIG((Val)?26:0,1,13);//pa6,tim3
+	PWM1_CONFIG((Val)?26:0,1,13);//pa6,tim3
 }
 #endif
 

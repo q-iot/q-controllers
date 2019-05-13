@@ -230,9 +230,13 @@ void Tim4_Set(u16 Val, u16 uS_Base, bool AutoReload)
 }
 
 //PA6: TIM3_CH1
+//uS_Base 表示单位，为1时，单位是us；为100时，单位是100us；最小值1，最大值900
 //占空比=Pluse/Val
 //周期=Val*uS_Base
-void IO7_PWM_CONFIG(u16 Val, u16 uS_Base,u16 Pluse)
+//当Pluse大于等于Val时，IO口将置高
+//当任一参数为0时，IO口将置低
+//Val不能设置为1
+void PWM1_CONFIG(u16 Val, u16 uS_Base,u16 Pluse)
 {
 	static u16 Old_Val=0;
 	static u16 Old_uS_Base=0;
@@ -252,7 +256,7 @@ void IO7_PWM_CONFIG(u16 Val, u16 uS_Base,u16 Pluse)
 		Old_uS_Base=uS_Base;
 		Old_Pluse=Pluse;
 	}
-	Debug("IO7 %u %u %u\n\r",Val,Pluse,uS_Base);
+	Debug("PWM1 %u %u %u\n\r",Val,Pluse,uS_Base);
 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);  
     TIM_DeInit(TIM3);
@@ -334,9 +338,13 @@ void IO7_PWM_CONFIG(u16 Val, u16 uS_Base,u16 Pluse)
 }
 
 //PA7: TIM1_CH1N
+//uS_Base 表示单位，为1时，单位是us；为100时，单位是100us；最小值1，最大值900
 //占空比=Pluse/Val
 //周期=Val*uS_Base
-void IO8_PWM_CONFIG(u16 Val, u16 uS_Base,u16 Pluse)
+//当Pluse大于等于Val时，IO口将置高
+//当任一参数为0时，IO口将置低
+//Val不能设置为1
+void PWM2_CONFIG(u16 Val, u16 uS_Base,u16 Pluse)
 {   
 	static u16 Old_Val=0;
 	static u16 Old_uS_Base=0;
@@ -356,7 +364,7 @@ void IO8_PWM_CONFIG(u16 Val, u16 uS_Base,u16 Pluse)
 		Old_uS_Base=uS_Base;
 		Old_Pluse=Pluse;
 	}
-   	Debug("IO8 %u %u %u\n\r",Val,Pluse,uS_Base);
+   	Debug("PWM2 %u %u %u\n\r",Val,Pluse,uS_Base);
    	
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);  
     TIM_DeInit(TIM1);

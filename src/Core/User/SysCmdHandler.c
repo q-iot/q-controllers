@@ -414,7 +414,7 @@ static bool __inline SysCmdHandler_P(char **pCmd,const char *pStrCopy,char *pOut
 		u32 uS_Base=Str2Uint(pCmd[2]);
 		u32 Pluse=Str2Uint(pCmd[3]);
 
-		IO7_PWM_CONFIG(Val,uS_Base,Pluse);
+		PWM1_CONFIG(Val,uS_Base,Pluse);
 
 		return TRUE;
 	}
@@ -424,7 +424,7 @@ static bool __inline SysCmdHandler_P(char **pCmd,const char *pStrCopy,char *pOut
 		u32 uS_Base=Str2Uint(pCmd[2]);
 		u32 Pluse=Str2Uint(pCmd[3]);
 
-		IO8_PWM_CONFIG(Val,uS_Base,Pluse);
+		PWM2_CONFIG(Val,uS_Base,Pluse);
 
 		return TRUE;
 	}

@@ -10,8 +10,8 @@ void Tim1_Set(u16 Val,u16 uS_Base,bool AutoReload);
 void Tim2_Set(u16 Val,u16 uS_Base,bool AutoReload);
 void Tim3_Set(u16 Val,u16 uS_Base,bool AutoReload);
 void Tim4_Set(u16 Val,u16 uS_Base,bool AutoReload);
-void IO7_PWM_CONFIG(u16 Val, u16 uS_Base,u16 Pluse);
-void IO8_PWM_CONFIG(u16 Val, u16 uS_Base,u16 Pluse);
+void PWM1_CONFIG(u16 Val, u16 uS_Base,u16 Pluse);
+void PWM2_CONFIG(u16 Val, u16 uS_Base,u16 Pluse);
 
 
 #endif
