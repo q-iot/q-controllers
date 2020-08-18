@@ -27,16 +27,18 @@ static const IO_IN_HAL_DEFINE gIoInDefs[IOIN_MAX]={
 {IOIN_PIO6,		GPI_A,  GPin6, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_PIO7,		GPI_A,  GPin7, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,0,0},
 {IOIN_IR_IN,		GPI_A,  GPin11, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI15_10_IRQn,EXTI_Pio_Priority},
-{IOIN_USER_KEY,		GPI_B,  GPin1, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI1_IRQn,EXTI_Pio_Priority},
+{IOIN_USER_KEY,		GPI_B,  GPin3, GPIO_Mode_IPU,EXTI_Trigger_Rising_Falling,EXTI1_IRQn,EXTI_Pio_Priority},
+{IOIN_WRF_DRV_INT,	GPI_A, 	GPin8, GPIO_Mode_IPD,EXTI_Trigger_Falling,EXTI9_5_IRQn,EXTI_Si_Priority},
 };
 
 static const IO_OUT_HAL_DEFINE gIoOutDefs[IOOUT_MAX]={
 {IOOUT_LED1,			GPI_B,	GPin8,		GPIO_Mode_Out_PP,TRUE},
 {IOOUT_LED2,			GPI_B,	GPin9,		GPIO_Mode_Out_PP,TRUE},
-{IOOUT_FLASH_CS,	GPI_A,	GPin8,		GPIO_Mode_Out_PP,TRUE},//flash cs
+{IOOUT_FLASH_CS,	GPI_B,	GPin4,		GPIO_Mode_Out_PP,TRUE},//flash cs
 {IOOUT_FLASH_WP,	GPI_B,	GPin12,	GPIO_Mode_Out_PP,FALSE},//flash wp
 {IOOUT_IR_OUT,		GPI_A,	GPin12,		GPIO_Mode_Out_PP,FALSE},//ir out
-
+{IOOUT_WRF_DRV_CS,			GPI_B,	GPin12,	GPIO_Mode_Out_PP,FALSE},//rf cs
+{IOOUT_WRF_DRV_RESET,	GPI_B,	GPin1,		GPIO_Mode_Out_PP,FALSE},//rf reset
 };
 
 static void HwChoice(void)

@@ -36,6 +36,7 @@
 #include "RomFlash.h"
 #include "PublicFunc.h"
 #include "StmDevelop.h"
+#include "Sx1276.h"
 
 /* ISR Priority 0(highest)-15(lowest)*/
 //数字越小优先级越高	

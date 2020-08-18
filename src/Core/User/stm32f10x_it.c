@@ -252,7 +252,7 @@ void EXTI1_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line1) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line1);
-
+		Key_EXTI_Handler(IOIN_USER_KEY,IOIN_ReadIoStatus(IOIN_USER_KEY),TRUE);//如果是key，调用这个
 	}
 }
 
@@ -353,6 +353,12 @@ void EXTI9_5_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line8) != RESET) 
 	{
 		EXTI_ClearITPendingBit(EXTI_Line8); It_Debug("--E8--\n\r");
+		//if(IOIN_ReadIoStatus(IOIN_WRF_DRV_INT)==WRF_DRV_INT_LEVEL)
+		{
+			//WRF_DRV.pWRF_ISR();
+			Debug("pa8:%u\n\r",IOIN_ReadIoStatus(IOIN_WRF_DRV_INT));
+			Sx1276_ISR();
+		}
 	}
 
 	if(EXTI_GetITStatus(EXTI_Line9) != RESET)
@@ -454,7 +460,7 @@ void CmdParse(u8 Byte)
 void USART1_IRQHandler(void)
 {
 	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
-	{ 
+	{
 		USART_ClearITPendingBit(USART1,USART_IT_RXNE);//清除中断标志.
 		CmdParse(USART_ReceiveData(USART1));
 	}

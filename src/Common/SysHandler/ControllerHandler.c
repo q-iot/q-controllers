@@ -71,10 +71,12 @@ void ControllerEvtPost(EVENT_BIT_FLAG Event,int Param,void *p)
 		const EVENT_FUNC_ITEM *pItemArray=gpEvtCtrlers[CtrlerNum].ItemArray;
 		EVENT_HANDLER_RESUTL Res=EFR_OK;
 		
+		//if(Event!=EBF_IDLE) Debug("Find %s\n\r",gpEvtCtrlers[CtrlerNum].pName);
 		for(EvtNum=0;EvtNum<gpEvtCtrlers[CtrlerNum].EvtFuncTotal;EvtNum++)//轮询事件回调
-		{
+		{			
 			if(Event==pItemArray[EvtNum].Event && pItemArray[EvtNum].EvtFunc!=NULL)
 			{
+				//if(Event!=EBF_IDLE) Debug("  Goin %u\n\r",Event);
 				Res=pItemArray[EvtNum].EvtFunc(Event,Param,p);//事件处理函数回调
 				if(Res==EFR_STOP) goto EvtFinish;
 				break;//同一个事件每个控制器只能对应一个回调

@@ -535,6 +535,11 @@
               <FileType>1</FileType>
               <FilePath>..\Common\Hardware\StmDevelop.c</FilePath>
             </File>
+            <File>
+              <FileName>Sx1276.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\Hardware\Sx1276.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -634,6 +639,16 @@
               <FileName>TestController.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Controllers\TestController.c</FilePath>
+            </File>
+            <File>
+              <FileName>CollController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Controllers\CollController.c</FilePath>
+            </File>
+            <File>
+              <FileName>LoraController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Controllers\LoraController.c</FilePath>
             </File>
           </Files>
         </Group>

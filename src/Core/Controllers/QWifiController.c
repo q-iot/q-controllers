@@ -70,6 +70,7 @@ static EVENT_HANDLER_RESUTL QWIFI_Varible_Res_EF(EVENT_BIT_FLAG Event,int Value,
 	Debug("Event %u call %s [%s]=%d\n\r",Event,__FUNCTION__,pVarTag,Value);
 	Debug("LastCmd:%s\n\r",QCom_GetLastCmd());
 
+#if 0//此部分用于解析命令的示例
 	if(strlen(QCom_GetLastCmd()))
 	{
 		const char *pLastCmd=QCom_GetLastCmd();
@@ -87,7 +88,8 @@ static EVENT_HANDLER_RESUTL QWIFI_Varible_Res_EF(EVENT_BIT_FLAG Event,int Value,
 
 		Q_Free(pBuf);
 	}
-	
+#endif
+
 	return EFR_OK;
 }
 

@@ -47,6 +47,7 @@ static void Adc1_DmaConfig(volatile u16 *pBuf,u8 SampleNum,u8 ChanNum)
 }
 
 //按bit设置adc
+//可重复调用，以最后一次调用为准
 void Adc1_Rand_Init(u8 UseAio)
 {
 	ADC_InitTypeDef ADC_InitStructure;
@@ -56,10 +57,10 @@ void Adc1_Rand_Init(u8 UseAio)
 	if(UseAio)
 	{
 		Debug("ADC Init:");
-		if(ReadBit(UseAio,0)) Debug("1 ");
-		if(ReadBit(UseAio,1)) Debug("2 ");
-		if(ReadBit(UseAio,2)) Debug("3 ");
-		if(ReadBit(UseAio,3)) Debug("4 ");
+		if(ReadBit(UseAio,0)) Debug("0 ");
+		if(ReadBit(UseAio,1)) Debug("1 ");
+		if(ReadBit(UseAio,2)) Debug("2 ");
+		if(ReadBit(UseAio,3)) Debug("3 ");
 		Debug("\n\r");
 	}
 	
@@ -166,6 +167,7 @@ void Adc1_Rand_Init(u8 UseAio)
 
 //从dma中读取channal的采样值
 //channal从1开始，channal序号根据初始化顺序来，默认pb0
+//返回值0-4095
 u16 Adc1_GetVal(u8 Chan)
 {
 	u32 Sum=0;
@@ -196,6 +198,7 @@ u16 Adc1_GetVal(u8 Chan)
 }
 
 //AioID 0-3
+//返回值0-4095
 u16 Adc1_GetValByAio(u8 AioID)
 {
 	if(AioID>=WAVER_AIO_NUM) return 0;

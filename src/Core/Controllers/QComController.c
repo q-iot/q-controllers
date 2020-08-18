@@ -22,9 +22,16 @@ By Karlno 酷享科技
 #include "SysDefines.h"
 #include "Product.h"
 
+#define QCOM_OPEN_DEBUG 0//是否开启调试信息
+#if QCOM_OPEN_DEBUG
+#define QCC_Debug Debug
+#else
+#define QCC_Debug (void)
+#endif
+
 #define VAR_TAG_LEN 8
 
-#if 1
+#if 1 //给外部用的接口
 static char CmdBuf[32]={0};
 
 //读取发送指令缓存，即最后一条指令
@@ -197,7 +204,7 @@ static EVENT_HANDLER_RESUTL QCom_Cmd_EF(EVENT_BIT_FLAG Event,int Len,const char 
 
 	for(i=0;i<Num;i++)//打印收取到的参数
 	{
-		Debug("[%u]%s\n\r",i,pCmd[i]);
+		QCC_Debug("[%u]%s\n\r",i,pCmd[i]);
 	}
 
 	if(pCmd[0][0]!='#') goto Finish;

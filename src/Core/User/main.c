@@ -128,9 +128,11 @@ int main(void)
 
 	//控制器逐个注册，靠前的事件触发时优先执行
 	QComControllerReg();
-	QWifiControllerReg();
-	NewControllerReg();
-	TestControllerReg();
+	//QWifiControllerReg();
+	//NewControllerReg();
+	//TestControllerReg();
+	//CollControllerReg();
+	LoraControllerReg();
 
 #if 1//!ADMIN_DEBUG
 	IWDG_Configuration();//开启看门狗
@@ -138,8 +140,8 @@ int main(void)
 
 	//开中断
 	//IOIN_OpenExti(IOIN_IR_IN);
+	IOIN_OpenExti(IOIN_USER_KEY);//占用外部中断1
 	IOIN_OpenExti(IOIN_PIO0);
-	
 	
 	EventStateHandler();
 
