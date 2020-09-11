@@ -1,9 +1,10 @@
 #ifndef __PRODUCT_H__
 #define __PRODUCT_H__
 
-#define RELEASE_DAY 20190321
-#define PRODUCT_IS_CONTROLLER 1
-#define PRODUCT_C8_SUPPORT 1 //程序code超过64k即无法使用c8芯片
+#define RELEASE_DAY 20200819
+#define PRODUCT_IS_CONTROLLER 0
+#define PRODUCT_IS_LIFE1 1
+#define PRODUCT_C8_SUPPORT 0 //程序code超过64k即无法使用c8芯片
 
 #if PRODUCT_C8_SUPPORT //使用c8芯片，节省成本
 #define ROM_FLASH_SIZE	     0x10000	//64K
@@ -16,7 +17,7 @@
 
 #define ROM_FLASH_PAGE_U32_NUM (ROM_FLASH_PAGE_SIZE>>2)
 #define IAP_ACCESS_INFO_ADDR	(IAP_ROM1_ADDR+IAP_ROM_SIZE-ROM_FLASH_PAGE_SIZE)//rom最后一页作为信息记录
-#elif PRODUCT_IS_CONTROLLER
+#elif (PRODUCT_IS_CONTROLLER || PRODUCT_IS_LIFE1)
 #define ROM_FLASH_SIZE	     0x20000	//128K
 #define ROM_FLASH_PAGE_SIZE 1024		 // 1K
 #define IAP_BIN_PAGE_NUM 126//全片128页，bin最多126，最后一页用来保存iap信息

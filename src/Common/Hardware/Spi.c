@@ -118,7 +118,7 @@ void SPI2_Init(void)	//fly，jmp供给flash
 #else //for si4432
 	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
 	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
-	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
+	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;//值越低频率越高,2=36M,4=18M
 #endif
 	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
 	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
