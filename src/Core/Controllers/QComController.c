@@ -112,6 +112,12 @@ void QCom_ResetQwifi(void)
 }
 #endif
 
+static EVENT_HANDLER_RESUTL Init_EF(EVENT_BIT_FLAG Event,int a,void *p)
+{
+	COM3_Init(74880);//用户串口，接q-wifi	
+	return EFR_OK;
+}
+
 //qwifi回复字符串的解析函数
 static void QCom_Res_Handler(u16 Num,const char **pCmd,const char *pStr)
 {
@@ -281,6 +287,7 @@ Finish:
 
 //控制器定义和注册
 static const EVENT_FUNC_ITEM gQComController[]={
+{EBF_INIT,Init_EF},
 {EBF_Q_COM_CMD,QCom_Cmd_EF},
 
 

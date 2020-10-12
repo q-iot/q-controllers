@@ -25,7 +25,7 @@ void SPI_SetSpeed(SPI_TypeDef* SPIx,u8 SpeedSet)
 	SPIx->CR1|=1<<6; //SPI设备使能
 } 
 
-#if PRODUCT_IS_FOOTER
+#if PRODUCT_IS_FOOTER || PRODUCT_IS_LIFE1
 void SPI1_Init(void) //enc使用
 {
 	SPI_InitTypeDef SPI_InitStructure;

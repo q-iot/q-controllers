@@ -367,7 +367,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Common\Hardware;..\Common\Lib;..\Common\Lib\inc;..\Common\Storage;..\Common\Misc;..\Common\SysHandler;..\Common\SysTimer;..\Common\Include;..\Common\Q_Lib;..\Core\Controllers;..\Core\Include;..\Core\User;..\Core\Data</IncludePath>
+              <IncludePath>..\Common\Hardware;..\Common\Lib;..\Common\Lib\inc;..\Common\Storage;..\Common\Misc;..\Common\SysHandler;..\Common\SysTimer;..\Common\Include;..\Common\Q_Lib;..\Common\WNet;..\Common\Debug;..\Core\Controllers;..\Core\Include;..\Core\User;..\Core\Data;..\Core\WDev</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -481,6 +481,11 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
+              <FileName>WRfDrv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\Hardware\WRfDrv.c</FilePath>
+            </File>
+            <File>
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Common\Hardware\Delay.c</FilePath>
@@ -540,6 +545,16 @@
               <FileType>1</FileType>
               <FilePath>..\Common\Hardware\Sx1276.c</FilePath>
             </File>
+            <File>
+              <FileName>Si4432.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\Hardware\Si4432.c</FilePath>
+            </File>
+            <File>
+              <FileName>Uart2_Dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\Hardware\Uart2_Dma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -569,6 +584,36 @@
               <FileName>RomFlashSave.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Data\RomFlashSave.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>WNet</GroupName>
+          <Files>
+            <File>
+              <FileName>WNetPktAttrib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\WNet\WNetPktAttrib.c</FilePath>
+            </File>
+            <File>
+              <FileName>WNetPktSend.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\WNet\WNetPktSend.c</FilePath>
+            </File>
+            <File>
+              <FileName>WNetTransHandler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\WNet\WNetTransHandler.c</FilePath>
+            </File>
+            <File>
+              <FileName>WNetRecvQ.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\WNet\WNetRecvQ.c</FilePath>
+            </File>
+            <File>
+              <FileName>WNetNameDebug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\WNet\WNetNameDebug.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -631,16 +676,6 @@
               <FilePath>..\Core\Controllers\QWifiController.c</FilePath>
             </File>
             <File>
-              <FileName>NewController.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Controllers\NewController.c</FilePath>
-            </File>
-            <File>
-              <FileName>TestController.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Controllers\TestController.c</FilePath>
-            </File>
-            <File>
               <FileName>CollController.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Controllers\CollController.c</FilePath>
@@ -649,6 +684,41 @@
               <FileName>LoraController.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Controllers\LoraController.c</FilePath>
+            </File>
+            <File>
+              <FileName>WNetController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Controllers\WNetController.c</FilePath>
+            </File>
+            <File>
+              <FileName>LedsController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Controllers\LedsController.c</FilePath>
+            </File>
+            <File>
+              <FileName>RsComController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Controllers\RsComController.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>WDev</GroupName>
+          <Files>
+            <File>
+              <FileName>WDevFunc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\WDev\WDevFunc.c</FilePath>
+            </File>
+            <File>
+              <FileName>PairDataInHanlder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\WDev\PairDataInHanlder.c</FilePath>
+            </File>
+            <File>
+              <FileName>WorkMode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\WDev\WorkMode.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -679,6 +749,11 @@
               <FileName>SysCmdHandler.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\User\SysCmdHandler.c</FilePath>
+            </File>
+            <File>
+              <FileName>NameDebug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Common\Debug\NameDebug.c</FilePath>
             </File>
           </Files>
         </Group>

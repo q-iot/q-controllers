@@ -18,8 +18,6 @@ By Karlno 酷享科技
 处理示例。
 */
 //------------------------------------------------------------------//
-
-
 #include "SysDefines.h"
 #include "Product.h"
 
@@ -64,8 +62,6 @@ static const EVENT_FUNC_ITEM gNewController[]={
 {EBF_IDLE,Idle_EF},
 {EBF_KEY,KeyHandler_EF},
 {EBF_USER_EVT1,Evt1_EF},
-
-
 
 
 {EBF_NULL,NULL}//控制器定义一律以此结尾

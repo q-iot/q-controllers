@@ -40,6 +40,7 @@ bool DeleteSysTimer(u32 Id);
 
 extern u32 gWdgTimer;
 extern u32 gTimingFuncTimer;	
+extern u32 gWnetTimer;
 
 
 

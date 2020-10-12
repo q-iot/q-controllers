@@ -23,9 +23,14 @@ By Karlno 酷享科技
 static const RFS_BLOCK gDefBlock={//默认配置
 1,//Ver
 0,//Num
+0,//DebugFlags
+9600,//u32 Com2Baud;//us2波特率
 
+WRF_RSSI_THRESHOLD,//RFSI_RSSI_THRD
+0,//u32 RFSI_FLY_ADDR
+0,//u32 RFSI_BROTHER_ADDR;//透传兄弟地址
 
-
+FALSE,//bool SnAuth;//序列认证
 };
 
 static RFS_BLOCK gDataBlock;//配置缓存
@@ -40,7 +45,16 @@ void RFS_Debug(void)
 	Frame();Debug("  |SoftVer:%u.%u\n\r",__gBinSoftVer,RELEASE_DAY);
 #endif
 	Frame();Debug("  |Num:%u\n\r",gDataBlock.Num);
-
+	Frame();Debug("  |Com2 Baudrate:%u\n\r",gDataBlock.Com2Baud);
+	Frame();Debug("  |MY_WNET_ADDR:0x%x\n\r",WNetMyAddr());
+	Frame();Debug("  |RFSI_RSSI_THRD:%u\n\r",gDataBlock.RFSI_RSSI_THRD);
+	Frame();Debug("  |RFSI_FLY_ADDR:0x%x\n\r",gDataBlock.RFSI_FLY_ADDR);
+	Frame();Debug("  |RFSI_BROTHER_ADDR:0x%x\n\r",gDataBlock.RFSI_BROTHER_ADDR);
+	Frame();Debug("  |Debug:",gDataBlock.RFSI_BROTHER_ADDR);
+					if(NeedDebug(DFT_WNET))Debug("wnet ");
+					if(NeedDebug(DFT_WPKT))Debug("wpkt ");
+					if(NeedDebug(DFT_WDEV))Debug("wdev ");
+					Debug("\n\r");
 	Debug("  -------------------------------------------------------------------\n\r");
 }
 
@@ -102,4 +116,20 @@ RFS_BLOCK *RFS_DB(void)
 	return &gDataBlock;
 }
 
+bool RFS_GetDebugBits(DEBUG_FLAG_TYPE Flag)
+{
+	return ReadBit(gDataBlock.DebugFlags,Flag)?TRUE:FALSE;
+}
+
+void RFS_SetDebugBits(DEBUG_FLAG_TYPE Flag)
+{
+	if(Flag==DFT_MAX) gDataBlock.DebugFlags=0xff;
+	else SetBit(gDataBlock.DebugFlags,Flag);
+}
+
+void RFS_ClrDebugBits(DEBUG_FLAG_TYPE Flag)
+{
+	if(Flag==DFT_MAX) gDataBlock.DebugFlags=0;
+	else ClrBit(gDataBlock.DebugFlags,Flag);
+}
 

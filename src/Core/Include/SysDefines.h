@@ -31,6 +31,14 @@
 #include "NextLoopFunc.h"
 #include "ControllerHandler.h"
 #include "QComFunc.h"
+#include "NameDebug.h"
+
+#include "WNetNameDebug.h"
+#include "WNetPktTypes.h"
+#include "WNetTransHandler.h"
+#include "WNetPktSend.h"
+#include "WNetPktAttrib.h"
+#include "WNetRecvQ.h"
 
 extern const u32 __gBinSoftVer;
 extern const u32 __gBinSize;

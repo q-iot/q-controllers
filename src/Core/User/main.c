@@ -24,6 +24,21 @@ By Karlno 酷享科技
 
 u32 gWdgTimer=0;//系统定时器句柄
 u32 gTimingFuncTimer=0;//系统定时器句柄
+u32 gWnetTimer=0;//WNet定时器
+
+u32 CalcAuthKey(u32 HwID)
+{
+	u8 a,b,c,d,e,f;
+
+	a=HwID%10;
+	b=(HwID/10)%10;
+	c=(HwID/100)%10;
+	d=(HwID/1000)%10;
+	e=(HwID/10000)%10;
+	f=(HwID/100000)%10;
+	
+	return (a*b*10000)+(c*d*100)+e*f;
+}
 
 //硬件初始化
 void HardwareInit(void)
@@ -100,13 +115,12 @@ int main(void)
 	SysTick_Init();//节拍定义	
 	SystemInit();//系统时钟初始化
 	COM1_Init(115200);//调试串口
-	COM3_Init(74880);//用户串口，接q-wifi
 
 	DebugCol("\n\n\n\n\rQ-Controller");Debug(" ");
 	DebugCol("%u\n\r",GetHwID(NULL));
 	Debug("Release %u\n\r",RELEASE_DAY);
 
-    RFS_Init();//数据存储初始化
+	RFS_Init();//数据存储初始化
 	Adc1_Rand_Init(0);//adc pa0 pa1 pa2 pa3，每个bit代表一路
 
 	NextLoopFuncInit();//sys time 会用到
@@ -118,22 +132,24 @@ int main(void)
 	SecFuncInit();//秒级定时器
 	HardwareInit();//底层硬件初始化
 
-	//指示灯
-	LedSet(IOOUT_LED1,1);//yellow
-	LedSet(IOOUT_LED2,1);//blue
-	DelayMs(200);
-	LedSet(IOOUT_LED1,0);//yellow
-	LedSet(IOOUT_LED2,0);//blue
-	DelayMs(200);
-
 	//控制器逐个注册，靠前的事件触发时优先执行
-	QComControllerReg();
+	//QComControllerReg();
 	//QWifiControllerReg();
 	//NewControllerReg();
 	//TestControllerReg();
 	//CollControllerReg();
-	LoraControllerReg();
-
+	//LoraControllerReg();
+	if(RFS_DB()->SnAuth)
+	{
+		RsComControllerReg();
+		WNetControllerReg();
+		LedsControllerReg();
+	}
+	else
+	{
+		Debug("Auth Denied\n\r");
+	}
+	
 #if 1//!ADMIN_DEBUG
 	IWDG_Configuration();//开启看门狗
 #endif

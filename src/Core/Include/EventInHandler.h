@@ -34,11 +34,15 @@ typedef enum{
 	EBF_QWIFI_MSG_RET,//发送系统消息给qwifi返回结果
 	EBF_QWIFI_STR_RET,//发送字符串给qwifi返回结果
 
-
+	//WNET无线网络
+	EBF_WNET_PACKET_IN,//底层裸数据进入
+	EBF_WNET_DATA_IN,//应用层数据进入
 	
 	//内部任务
 	EBF_SYS_CMD,//系统串口命令
-
+	EBF_LED_MODE=0x30,//led模式
+	EBF_RS_COM_CMD,
+	
 	//用户自定义事件
 	EBF_USER_EVT1,
 	EBF_USER_EVT2,

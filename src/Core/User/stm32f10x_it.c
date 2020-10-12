@@ -102,6 +102,7 @@ void __inline SecTick_Handler(void)// 1s进一次
 #define KEY_MAX_PUSH_DELAY_MS 20000
 #define KEY_FILTER_DELAY 50
 static volatile u32 gKeyDelay[IOIN_MAX]={0};//防止毛刺
+extern volatile u16 gWnetWaitAckCount;// wnet移植相关定时计数器
 extern volatile u32 gSysTick;//系统定时器
 extern volatile SYS_TIMER_RCD gpSysTimerRcd[SYS_TIMER_MAX_NUM];
 void SysTick_Handler(void)
@@ -112,6 +113,7 @@ void SysTick_Handler(void)
 		u16 i;	
 
 		for(i=0;i<IOIN_MAX;i++){if(gKeyDelay[i]) gKeyDelay[i]--;}
+		if(gWnetWaitAckCount) gWnetWaitAckCount--;//wnet相关
 		
 #if 1
 		{//模拟rtc中断，如有硬件rtc支持，可迁移
@@ -211,14 +213,18 @@ void RCC_IRQHandler(void)
 {}
 
 //处理pin io中断
-static __inline void PIO_EXTI_Handler(IO_IN_DEFS Io,u8 State)
+static __inline void PIO_EXTI_Handler(IO_IN_DEFS Io)
 {
+	u8 State=IOIN_ReadIoStatus(Io);
+	
 	SendEvent(EBF_PIO_IN,(State<<16)|Io,NULL);		
 }
 
 //处理按键中断，如果按键默认是上拉，则IsPullUp设置为true
-static __inline void Key_EXTI_Handler(IO_IN_DEFS Io,u8 State,bool IsPullUp)
+static __inline void Key_EXTI_Handler(IO_IN_DEFS Io,bool IsPullUp)
 {
+	u8 State=IOIN_ReadIoStatus(Io);
+
 	if(State==(IsPullUp?0:1))//press
 	{
 		gKeyDelay[Io]=Ms2Sch(KEY_MAX_PUSH_DELAY_MS);//延时20秒
@@ -240,8 +246,8 @@ void EXTI0_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line0) != RESET)
 	{  
 		EXTI_ClearITPendingBit(EXTI_Line0);	
-		//PIO_EXTI_Handler(IOIN_PIO0,IOIN_ReadIoStatus(IOIN_PIO0));//如果是数字io，调用这个
-		//Key_EXTI_Handler(IOIN_PIO0,IOIN_ReadIoStatus(IOIN_PIO0),TRUE);//如果是key，调用这个
+		//PIO_EXTI_Handler(IOIN_PIO0);//如果是数字io，调用这个
+		Key_EXTI_Handler(IOIN_KEY1,TRUE);//如果是key，调用这个
 	}
 }
 
@@ -252,7 +258,7 @@ void EXTI1_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line1) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line1);
-		Key_EXTI_Handler(IOIN_USER_KEY,IOIN_ReadIoStatus(IOIN_USER_KEY),TRUE);//如果是key，调用这个
+		Key_EXTI_Handler(IOIN_KEY2,TRUE);//如果是key，调用这个
 	}
 }
 
@@ -263,7 +269,7 @@ void EXTI2_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line2) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line2);
-		PIO_EXTI_Handler(IOIN_PIO2,IOIN_ReadIoStatus(IOIN_PIO2));
+		PIO_EXTI_Handler(IOIN_PIO2);
 	}
 }
 
@@ -274,7 +280,7 @@ void EXTI3_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line3) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line3);	 		
-		//PIO_EXTI_Handler(IOIN_PIO3,IOIN_ReadIoStatus(IOIN_PIO3));
+		//PIO_EXTI_Handler(IOIN_PIO3);
 
 #if ENABLE_IR_FUNC
 		IrPulseIn_ISR();		
@@ -289,7 +295,7 @@ void EXTI4_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line4) != RESET)
 	{		
 		EXTI_ClearITPendingBit(EXTI_Line4);
-		PIO_EXTI_Handler(IOIN_PIO4,IOIN_ReadIoStatus(IOIN_PIO4));
+		PIO_EXTI_Handler(IOIN_PIO4);
 	}
 }
 
@@ -335,19 +341,19 @@ void EXTI9_5_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line5) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line5);It_Debug("--E5--\n\r");
-		PIO_EXTI_Handler(IOIN_PIO5,IOIN_ReadIoStatus(IOIN_PIO5));
+		Key_EXTI_Handler(IOIN_PIO5,TRUE);
 	}
 
 	if(EXTI_GetITStatus(EXTI_Line6) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line6);It_Debug("--E6--\n\r");
-		PIO_EXTI_Handler(IOIN_PIO6,IOIN_ReadIoStatus(IOIN_PIO6));
+		PIO_EXTI_Handler(IOIN_PIO6);
 	}
 	
 	if(EXTI_GetITStatus(EXTI_Line7) != RESET) 
 	{
 		EXTI_ClearITPendingBit(EXTI_Line7);	 It_Debug("--E7--\n\r");
-		PIO_EXTI_Handler(IOIN_PIO7,IOIN_ReadIoStatus(IOIN_PIO7));
+		PIO_EXTI_Handler(IOIN_PIO7);
 	}
 
 	if(EXTI_GetITStatus(EXTI_Line8) != RESET) 
@@ -422,7 +428,7 @@ void SPI1_IRQHandler(void)
 void SPI2_IRQHandler(void)
 {}
 
-#define CMD_BUF_LEN 256
+#define CMD_BUF_LEN 100
 void CmdParse(u8 Byte)
 {
 	static u8 CmdBuf[CMD_BUF_LEN+2];
@@ -467,9 +473,30 @@ void USART1_IRQHandler(void)
 }
 
 void USART2_IRQHandler(void)
-{}
+{
+	if(USART_GetITStatus(USART2,USART_IT_RXNE) != RESET)
+	{ 
+		USART_ClearITPendingBit(USART2,USART_IT_RXNE);//清除中断标志.
+	}
 
+	//接收空闲
+	if(USART_GetITStatus(USART2,USART_IT_IDLE) != RESET)
+	{
+		u8 t=t;
+		t=USART2->SR;t=USART2->DR;
+		Com2_Rx_IDLE_ISR();
+		USART_ClearITPendingBit(USART2, USART_IT_IDLE);//清除空闲中断
+	}
 
+	//发送完成
+	if(USART_GetITStatus(USART2,USART_IT_TC) != RESET)
+	{ 
+		Com2_Tx_TC_ISR();
+		USART_ClearITPendingBit(USART2,USART_IT_TC);//清除中断标志.
+	}		
+}
+
+#if !PRODUCT_IS_LIFE1 //life1不需要这个，节省内存
 #define US3_BUF_LEN 64
 void USART3_IRQHandler(void)
 {
@@ -486,7 +513,8 @@ void USART3_IRQHandler(void)
 
 	if(USART_GetITStatus(USART3,USART_IT_IDLE) != RESET)
 	{
-		USART3->SR;USART3->DR;//清idle标志位
+		u8 temp;
+		temp=USART3->SR;temp=USART3->DR;//清idle标志位
 		
 		if(Us3RecvBuf[0]=='#')//指令
 		{
@@ -508,6 +536,7 @@ UsRecvFinish:
 		}
 	}
 }
+#endif
 
 void EXTI15_10_IRQHandler(void)
 {
@@ -516,6 +545,11 @@ void EXTI15_10_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line10) != RESET)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line10);		
+
+		if(IOIN_ReadIoStatus(IOIN_WRF_DRV_INT)==WRF_DRV_INT_LEVEL)
+		{
+			WRF_DRV.pWRF_ISR();
+		}		
 	}
 	
 	if(EXTI_GetITStatus(EXTI_Line11) != RESET)

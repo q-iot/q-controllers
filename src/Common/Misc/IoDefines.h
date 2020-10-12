@@ -31,6 +31,7 @@ typedef enum{
 	IOOUT_FLASH_WP,
 	IOOUT_WRF_DRV_CS,
 	IOOUT_WRF_DRV_RESET,
+	IOOUT_WRF_DRV_SDN,
 
 	IOOUT_MAX,
 
@@ -51,7 +52,6 @@ typedef enum{
 	IOIN_PIO7,
 	IOIN_IR_IN,
 	IOIN_USER_KEY,
-	IOIN_WRF_DRV_INT,
 	
 	IOIN_MAX
 }IO_IN_DEFS;
@@ -62,8 +62,6 @@ typedef enum{
 	IOOUT_FLASH_CS,
 	IOOUT_FLASH_WP,
 	IOOUT_IR_OUT,
-	IOOUT_WRF_DRV_CS,
-	IOOUT_WRF_DRV_RESET,
 
 	IOOUT_MAX
 }IO_OUT_DEFS;
@@ -108,7 +106,7 @@ void IOIN_CloseOneExti(const IO_IN_HAL_DEFINE *pInPin);
 u16 IOIN_ReadExti(IO_IN_DEFS Io) ;
 u16 IOIN_ReadOneExti(const IO_IN_HAL_DEFINE *pInPin);
 
-#define LedSet(LedId,Status) IOOUT_SetIoStatus(LedId,Status?FALSE:TRUE)
+#define LedSet(LedId,Status) IOOUT_SetIoStatus(LedId,(Status)?FALSE:TRUE)
 #define LedRev(LedId) IOOUT_SetIoStatus(LedId,IOOUT_ReadIoStatus(LedId)?FALSE:TRUE)
 
 

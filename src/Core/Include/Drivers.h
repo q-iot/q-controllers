@@ -6,6 +6,8 @@
 #define ClrBit(reg,bit) (reg&=~(1<<(bit)))
 #define RevBit(reg,bit) (reg^=(1<<(bit)))
 #define ReadBit(reg,bit) ((reg>>(bit))&1)
+#define HBit4(v) (((v)>>4)&0xf)
+#define LBit4(v) ((v)&0xf)
 #define HBit8(v) (((v)>>8)&0xff)
 #define LBit8(v) ((v)&0xff)
 #define HBit16(v) (((v)>>16)&0xffff)
@@ -37,6 +39,7 @@
 #include "PublicFunc.h"
 #include "StmDevelop.h"
 #include "Sx1276.h"
+#include "WRfDrv.h"
 
 /* ISR Priority 0(highest)-15(lowest)*/
 //数字越小优先级越高	
@@ -44,6 +47,7 @@
 #define EXTI_Si_Priority 3
 #define EXTI_Pio_Priority 3
 #define USART1_IRQn_Priority 3
+#define USART2_IRQn_Priority 3
 #define USART3_IRQn_Priority 3
 
 

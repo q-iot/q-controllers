@@ -93,6 +93,65 @@ void COM1_Init(u32 bound)
 	
 }
 
+void COM2_Init(u32 bound)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;	
+
+	//使能串口中断，并设置优先级
+	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = USART2_IRQn_Priority;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;  
+	NVIC_Init(&NVIC_InitStructure);	//将结构体丢到配置函数，即写入到对应寄存器中
+	
+	/* 开启GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+
+	/* Configure USART Tx as alternate function push-pull */
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	    
+	/* Configure USART Rx as input floating */
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	USART_InitStructure.USART_BaudRate = bound;	//波特率
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;		//数据位
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;		//停止位
+	USART_InitStructure.USART_Parity = USART_Parity_No;		//奇偶校验
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;	//数据流控制
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;		//模式
+
+	/* USART configuration */
+	USART_Init(USART2, &USART_InitStructure);
+	
+	/* Enable USART */
+	USART_Cmd(USART2, ENABLE);
+	
+	/* Enable USART1 Receive interrupts */
+   // if(CheckDebugMode()==TRUE)
+    {
+		//Debug("Enable Com3 Input!\n\r");
+    	//USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+    	//USART_ITConfig(USART2, USART_IT_IDLE, ENABLE);
+	}	
+}
+
+void Com2_Send(u16 Len,const u8 *pData)
+{//Debug("US3[%u]%s\n",Len,pData);
+	while(Len--)
+	{
+		while((USART2->SR&USART_FLAG_TXE)==0);//循环发送,直到发送完毕   
+		USART2->DR = (u8) *pData++;
+	}
+}
+
 void COM3_Init(u32 bound)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;

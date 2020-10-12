@@ -21,6 +21,7 @@ By Karlno 酷享科技
 #include "SysDefines.h"
 #include "StrParse.h"
 #include "Product.h"
+#include "LedsMode.h"
 
 static bool __inline SysCmdHandler_A(char **pCmd,const char *pStrCopy,char *pOutStream)
 {
@@ -57,7 +58,32 @@ static bool __inline SysCmdHandler_B(char **pCmd,const char *pStrCopy,char *pOut
 
 static bool __inline SysCmdHandler_C(char **pCmd,const char *pStrCopy,char *pOutStream)
 {
+	if(strcmp((void *)pCmd[0],"com_baud")==0)
+	{
+		if(IsNullStr(pCmd[1]))//help
+		{
 
+		}
+		else
+		{
+			u32 baud=Str2Uint(pCmd[1]);
+			u32 i;
+			const u32 baudset[]={1200,2400,4800,9600,19200,38400,57600,115200};
+			
+			for(i=0;i<(sizeof(baudset)/sizeof(baudset[0]));i++)
+			{
+				if(baud==baudset[i])
+				{
+					RFS_DB()->Com2Baud=baud;
+					Debug("Baudrate is set to %u, pls save it.\n\r",baud);
+					return TRUE;
+				}
+			}	
+			Debug("Baudrate Num Error!\n\r");
+		}
+
+		return TRUE;
+	}
 	
 	return FALSE;
 }
@@ -94,6 +120,26 @@ static bool __inline SysCmdHandler_D(char **pCmd,const char *pStrCopy,char *pOut
 		DefaultConfig();
 		return TRUE;
 	}
+	else if(strcmp((void *)pCmd[0],"disp")==0)
+	{
+		if(IsNullStr(pCmd[2]))
+		{
+			if(strcmp((void *)pCmd[1],"all")==0) RFS_SetDebugBits(DFT_MAX);
+			else if(strcmp((void *)pCmd[1],"wnet")==0) RFS_SetDebugBits(DFT_WNET);
+			else if(strcmp((void *)pCmd[1],"wpkt")==0) RFS_SetDebugBits(DFT_WPKT);
+			else if(strcmp((void *)pCmd[1],"wdev")==0) RFS_SetDebugBits(DFT_WDEV);
+		}
+		else
+		{
+			if(strcmp((void *)pCmd[1],"all")==0) RFS_ClrDebugBits(DFT_MAX);
+			else if(strcmp((void *)pCmd[1],"wnet")==0) RFS_ClrDebugBits(DFT_WNET);
+			else if(strcmp((void *)pCmd[1],"wpkt")==0) RFS_ClrDebugBits(DFT_WPKT);
+			else if(strcmp((void *)pCmd[1],"wdev")==0) RFS_ClrDebugBits(DFT_WDEV);
+		}
+
+		return TRUE;
+	}
+	
 
 	return FALSE;
 }
@@ -125,6 +171,13 @@ static bool __inline SysCmdHandler_E(char **pCmd,const char *pStrCopy,char *pOut
 		Debug("float2i %x = %f\n\r",0x3DFDF3B6,Ieee2Float(0x3DFDF3B6));
 		Debug("float2i %x = %f\n\r",0x42DDCC80,Ieee2Float(0x42DDCC80));
 		
+		return TRUE;
+	}
+	else if(strcmp((void *)pCmd[0],"event")==0)
+	{
+		u32 Evt=Str2Uint(pCmd[1]);
+		u32 Param=Str2Uint(pCmd[2]);
+		SendEvent(Evt,Param,NULL);
 		return TRUE;
 	}
 	
@@ -333,6 +386,15 @@ static bool __inline SysCmdHandler_H(char **pCmd,const char *pStrCopy,char *pOut
 		
 		return TRUE;
 	}
+	else if(strcmp((void *)pCmd[0],"host")==0)
+	{
+		u32 HostAddr=Str2Uint(pCmd[1]);
+		
+		Debug("Set HostAddr = 0x%x\n\r",HostAddr);
+		RFS_DB()->RFSI_FLY_ADDR=HostAddr;
+		
+		return TRUE;
+	}
 
 	return FALSE;
 }
@@ -435,6 +497,12 @@ static bool __inline SysCmdHandler_P(char **pCmd,const char *pStrCopy,char *pOut
 
 		return TRUE;
 	}
+	else if(strcmp((void *)pCmd[0],"pass")==0)
+	{
+		SendEvent(EBF_RS_COM_CMD,10,"1234567890");
+
+		return TRUE;
+	}
 
 	return FALSE;
 }
@@ -503,12 +571,31 @@ static bool __inline SysCmdHandler_S(char **pCmd,const char *pStrCopy,char *pOut
 	if(strcmp((void *)pCmd[0],"save")==0)
 	{
 		Debug("Save System Parameter\n\r");
-		//RFS_BurnToRom();
+		RFS_BurnToRom();
 		return TRUE;
 	}
 	else if(strcmp((void *)pCmd[0],"setio")==0)
 	{
 		IOIN_SetIoStatus((IO_IN_DEFS)(IOIN_PIO0+Str2Uint(pCmd[1])),Str2Uint(pCmd[2])?TRUE:FALSE);
+		return TRUE;
+	}
+	else if(pCmd[0][0]=='s'&&pCmd[0][1]=='e'&&pCmd[0][2]=='t'
+		&&pCmd[0][3]=='k'	&&pCmd[0][4]=='e'&&pCmd[0][5]=='y'&&pCmd[0][6]==0)
+	{
+		u32 Key=Str2Uint(pCmd[1]);
+
+		if(Key==CalcAuthKey(GetHwID(NULL)))
+		{
+			RFS_DB()->SnAuth=TRUE;
+			AddNextVoidFunc(FALSE,RFS_BurnToRom);
+		}
+
+		if(Key==0 && NotNullStr(pCmd[1]))
+		{
+			RFS_DB()->SnAuth=FALSE;
+			AddNextVoidFunc(FALSE,RFS_BurnToRom);
+		}
+		
 		return TRUE;
 	}
 	
@@ -555,9 +642,61 @@ static bool __inline SysCmdHandler_V(char **pCmd,const char *pStrCopy,char *pOut
     return FALSE;
 }
 
+static void SendStrToHost_CB(WNET_BASE_RES TransRes, WNET_INFO_BLOCK *pBlock)
+{
+	if(TransRes==WBR_OK)
+	{
+		Debug("Str To Fly OK %d\n\r",pBlock->PktSn);
+		//WCON_PACKET *pConPkt=(void *)pBlock->pData;
+	}
+	else
+	{
+		Debug("Sent Str Faild!\n\r");
+	}
+}
+
+void SendStrToHost(int StrID,void *pStr,bool NeedFreeStr)
+{
+	u32 FlyAddr=RFS_DB()->RFSI_FLY_ADDR;
+
+	if(FlyAddr)
+	{
+		WSTR_PACKET *pStrPkt=0;
+		u16 Bytes=0;
+		u16 PktSn;		
+		
+		if(pStr!=NULL) Bytes=strlen(pStr)+1;
+		pStrPkt=Q_Malloc(16+Bytes);
+
+		pStrPkt->Type=WPT_DEV_STR;
+		pStrPkt->Res=WPR_MAIN;
+		pStrPkt->PktCnt=GetWNetPktCnt();
+		
+		pStrPkt->Num=4;
+		pStrPkt->DataLen=Bytes+4;
+
+		MemCpy(pStrPkt->Data,&StrID,4);
+		if(Bytes) MemCpy(&pStrPkt->Data[4],pStr,Bytes);
+
+		PktSn=WNetSendPkt(FlyAddr,(void *)pStrPkt,(pStdFunc)SendStrToHost_CB);
+		if(PktSn==0)
+		{
+			Debug("Send Str State Faild!\n\r");
+		}
+		
+		Q_Free(pStrPkt);
+		if(NeedFreeStr && pStr!=NULL && IsHeapRam(pStr)) Q_Free(pStr);//调用的时候申请的，需要回收
+	}
+}
+
 static bool __inline SysCmdHandler_W(char **pCmd,const char *pStrCopy,char *pOutStream)
 {
-
+	if(strcmp((void *)pCmd[0],"wnet")==0)
+	{
+		SendStrToHost(0,(void *)&pStrCopy[5],FALSE);
+		return TRUE;
+	}
+	
 	return FALSE;
 }
 

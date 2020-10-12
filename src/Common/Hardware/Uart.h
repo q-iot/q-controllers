@@ -9,6 +9,8 @@
 #define DebugCol(format,...) printf("\033[7m");printf(format,##__VA_ARGS__);printf("\033[0m");
 
 void COM1_Init(u32 bound);
+void COM2_Init(u32 bound);
+void Com2_Send(u16 Len,const u8 *pData);
 void COM3_Init(u32 bound);
 void Com3_Send(u16 Len,const u8 *pData);
 
