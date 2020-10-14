@@ -26,20 +26,6 @@ u32 gWdgTimer=0;//系统定时器句柄
 u32 gTimingFuncTimer=0;//系统定时器句柄
 u32 gWnetTimer=0;//WNet定时器
 
-u32 CalcAuthKey(u32 HwID)
-{
-	u8 a,b,c,d,e,f;
-
-	a=HwID%10;
-	b=(HwID/10)%10;
-	c=(HwID/100)%10;
-	d=(HwID/1000)%10;
-	e=(HwID/10000)%10;
-	f=(HwID/100000)%10;
-	
-	return (a*b*10000)+(c*d*100)+e*f;
-}
-
 //硬件初始化
 void HardwareInit(void)
 {	
