@@ -2,6 +2,7 @@
 #define _WDEV_FUNC_H_
 
 #include "WorkMode.h"
+#include "LedsMode.h"
 
 void WDevPairDev(WNET_ADDR WAddr,pStdFunc pSentCallBack);
 void WDevSyncToDev(WNET_ADDR WAddr);

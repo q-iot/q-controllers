@@ -19,7 +19,6 @@ By Karlno 酷享科技
 //------------------------------------------------------------------//
 #include "SysDefines.h"
 #include "Product.h"
-#include "LedsMode.h"
 #include "WDevFunc.h"
 
 //控制器事件处理函数

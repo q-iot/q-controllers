@@ -755,6 +755,11 @@
               <FileType>1</FileType>
               <FilePath>..\Common\Debug\NameDebug.c</FilePath>
             </File>
+            <File>
+              <FileName>AuthKey.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\User\AuthKey.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

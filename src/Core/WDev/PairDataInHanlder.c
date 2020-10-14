@@ -1,7 +1,5 @@
 #include "SysDefines.h"
 #include "WDevFunc.h"
-#include "LedsMode.h"
-
 
 //配对流程，发起端a，被绑定端b
 //a b先后进入配对模式
