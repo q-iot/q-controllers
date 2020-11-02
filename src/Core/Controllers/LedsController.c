@@ -29,6 +29,17 @@ static EVENT_HANDLER_RESUTL Init_EF(EVENT_BIT_FLAG Event,int a,void *p)
 	//Ö¸Ê¾µÆ
 	LedSet(IOOUT_LED1,0);
 	LedSet(IOOUT_LED2,0);
+
+	if(RFS_DB()->SnAuth)
+	{
+		LedIndicate(LM_ON_500MS);
+		LedIndicate(LM2_ON_500MS);
+	}
+	else
+	{
+		LedIndicate(LM_ON_2S);
+		LedIndicate(LM2_ON_2S);
+	}
 	
 	return EFR_OK;
 }

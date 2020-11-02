@@ -51,7 +51,7 @@ static void PairToDev_CB(WNET_BASE_RES TransRes, WNET_INFO_BLOCK *pBlock)
 static void PairPassThrough(WSTR_PACKET *pDataPkt,u32 SrcAddr,u32 DstAddr)
 {
 	if(pDataPkt->Type!=WPT_PASS_THROUGH) return;
-	if(SrcAddr!=RFS_DB()->RFSI_BROTHER_ADDR) return;
+	if(SrcAddr != RFS_DB()->RFSI_BROTHER_ADDR) return;
 
 	Com2_Send_Dma(pDataPkt->Data,pDataPkt->DataLen);
 }

@@ -22,7 +22,7 @@ By Karlno 酷享科技
 #include "WDevFunc.h"
 
 //控制器事件处理函数
-static EVENT_HANDLER_RESUTL RsComInit_EF(EVENT_BIT_FLAG Event,int a,void *p)
+static EVENT_HANDLER_RESUTL Init_EF(EVENT_BIT_FLAG Event,int a,void *p)
 {
 	COM2_Init(RFS_DB()->Com2Baud);
 	Com2_DmaConfig();
@@ -45,19 +45,31 @@ static void PassToDev_CB(WNET_BASE_RES TransRes, WNET_INFO_BLOCK *pBlock)
 }
 
 //收到rs串口数据
-static EVENT_HANDLER_RESUTL RsComHandler_EF(EVENT_BIT_FLAG Event,int DateLen,u8 *pData)
+static EVENT_HANDLER_RESUTL RsComHandler_EF(EVENT_BIT_FLAG Event,int DataLen,u8 *pData)
 {
 	//Debug("RS COM:\n\r");
-	//DisplayBuf(pData,DateLen,16);
+	//DisplayBuf(pData,DataLen,16);
 
-	if(DateLen==0 || pData==NULL) return EFR_OK;
-	if(WorkMode()!=MNM_WORK) return EFR_OK;
+	if(DataLen==0 || pData==NULL) return EFR_OK;
 
-	LedSet(IOOUT_LED2,0);
-	WDevPassData(RFS_DB()->RFSI_BROTHER_ADDR,DateLen,pData,PassToDev_CB);
-	LedSet(IOOUT_LED2,1);
+	if((WorkMode()==MNM_IDLE && IOIN_ReadIoStatus(IOIN_KEY1)==0) || WorkMode()==MNM_CMD) //命令行模式
+	{
+		u8 *pOut=Q_Zalloc(1024);
+		if(pData[DataLen-1]=='\r') pData[DataLen-1]=0;
+		LedSet(IOOUT_LED2,1);
+		SysCmdHandler(pData,pOut);
+		Com2_Send_Dma(pOut,strlen(pOut));
+		LedSet(IOOUT_LED2,0);
+		Q_Free(pOut);
+	}
+	else if(WorkMode()==MNM_WORK)//透传模式
+	{
+		LedSet(IOOUT_LED2,0);
+		WDevPassData(RFS_DB()->RFSI_BROTHER_ADDR,DataLen,pData,PassToDev_CB);
+		LedSet(IOOUT_LED2,1);
+	}	
 
-	if(IsHeapRam(pData)) Q_Free(pData);
+	if(IsHeapRam(pData)) Q_Free(pData);//释放接收时分配的内存
 
 	return EFR_OK;
 }
@@ -79,8 +91,8 @@ static EVENT_HANDLER_RESUTL KeyHandler_EF(EVENT_BIT_FLAG Event,int a,void *p)
 
 //控制器定义和注册
 static const EVENT_FUNC_ITEM gRsComController[]={
-{EBF_INIT,RsComInit_EF},
-{EBF_RS_COM_CMD,RsComHandler_EF},
+{EBF_INIT,Init_EF},
+{EBF_RS_COM_TX,RsComHandler_EF},
 {EBF_KEY,KeyHandler_EF},
 
 {EBF_NULL,NULL}//控制器定义一律以此结尾

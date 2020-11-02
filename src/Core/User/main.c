@@ -85,8 +85,8 @@ void EventStateHandler(void)
 				break;
 			case EBF_SYS_CMD:
 				{
-					extern bool SysCmdHandler(u16 Len,const char *pStr,char *pOutStream);
-					SysCmdHandler(S32Param,pParam,NULL);
+					extern bool SysCmdHandler(const char *pStr,char *pOutStream);
+					if(strlen(pParam)==S32Param) SysCmdHandler(pParam,NULL);
 				}
 				break;				
 			case EBF_NEXT_LOOP_FUNC:
@@ -125,11 +125,12 @@ int main(void)
 	//TestControllerReg();
 	//CollControllerReg();
 	//LoraControllerReg();
+
+	LedsControllerReg();
+	RsComControllerReg();
 	if(RFS_DB()->SnAuth)
-	{
-		RsComControllerReg();
+	{		
 		WNetControllerReg();
-		LedsControllerReg();
 	}
 	else
 	{

@@ -22,7 +22,6 @@ By Karlno 酷享科技
 #include "Product.h"
 #include "WDevFunc.h"
 
-
 #define PAIR_LOOP_MS 2000
 static void PairLoopTimer(int cnt,void *p) //保持搜索包发送
 {
@@ -123,7 +122,7 @@ static EVENT_HANDLER_RESUTL KeyHandler_EF(EVENT_BIT_FLAG Event,int a,void *p)
 
 	//Debug("New Key%u %umS\n\r",KeyIo,Ms);
 
-	if(KeyIo==0)
+	if(KeyIo==IOIN_KEY1) 
 	{
 		if(Ms>=5000) //解绑兄弟
 		{
@@ -134,6 +133,7 @@ static EVENT_HANDLER_RESUTL KeyHandler_EF(EVENT_BIT_FLAG Event,int a,void *p)
 				WDevUnbindDev(RFS_DB()->RFSI_BROTHER_ADDR);
 				RFS_DB()->RFSI_BROTHER_ADDR=0;
 				AddNextVoidFunc(FALSE,RFS_BurnToRom);
+				LedIndicate(LMO_KEY_INDICATE);
 			}
 			else //还没兄弟
 			{

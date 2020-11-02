@@ -9,6 +9,7 @@ typedef enum{
 	MNM_SYNC,//确定配对关系
 	MNM_PRE_WORK,//有配对关系，但对方没上线
 	MNM_WORK,//已经添加，正常工作
+	MNM_CMD,//命令行模式，com口直接进入命令处理，不再进入任何其他模式，除非重启
 
 	MNM_MAX
 }NOW_WORK_MODE;

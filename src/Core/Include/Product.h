@@ -1,7 +1,7 @@
 #ifndef __PRODUCT_H__
 #define __PRODUCT_H__
 
-#define RELEASE_DAY 20200924
+#define RELEASE_DAY 20201102
 #define PRODUCT_IS_CONTROLLER 0
 #define PRODUCT_IS_LIFE1 1
 #define PRODUCT_C8_SUPPORT 0 //程序code超过64k即无法使用c8芯片

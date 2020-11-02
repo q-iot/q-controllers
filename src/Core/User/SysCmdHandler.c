@@ -21,6 +21,7 @@ By Karlno 酷享科技
 #include "SysDefines.h"
 #include "StrParse.h"
 #include "Product.h"
+#include "WorkMode.h"
 #include "LedsMode.h"
 
 static bool __inline SysCmdHandler_A(char **pCmd,const char *pStrCopy,char *pOutStream)
@@ -51,7 +52,43 @@ static bool __inline SysCmdHandler_A(char **pCmd,const char *pStrCopy,char *pOut
 
 static bool __inline SysCmdHandler_B(char **pCmd,const char *pStrCopy,char *pOutStream)
 {
+	if(strcmp((void *)pCmd[0],"brother")==0)
+	{
+		if(IsNullStr(pCmd[1]))//help
+		{
+			if(pOutStream!=NULL)
+			{
+				sprintf(pOutStream," Brother 0x%x",RFS_DB()->RFSI_BROTHER_ADDR);
+			}
+			else
+			{
+				Debug("Brother 0x%x\n\r",RFS_DB()->RFSI_BROTHER_ADDR);
+			}
+		}
+		else //set
+		{
+			u32 Brother=Str2Uint(pCmd[1]);
 
+			if(Brother==0)
+			{
+				if(RFS_DB()->RFSI_BROTHER_ADDR)
+				{
+					RFS_DB()->RFSI_BROTHER_ADDR=0;
+					AddNextVoidFunc(FALSE,RFS_BurnToRom);
+				}
+			}
+			else
+			{
+				RFS_DB()->RFSI_BROTHER_ADDR=CombAddr(GroupAddr(WNetMyAddr()),Brother);
+				AddNextVoidFunc(FALSE,RFS_BurnToRom);
+			}
+			
+			if(pOutStream!=NULL) sprintf(pOutStream," Set Brother to %u",Brother);
+			else Debug("Set Brother to %u\n\r",Brother);
+		}
+		
+		return TRUE;
+	}
 
 	return FALSE;
 }
@@ -62,12 +99,13 @@ static bool __inline SysCmdHandler_C(char **pCmd,const char *pStrCopy,char *pOut
 	{
 		if(IsNullStr(pCmd[1]))//help
 		{
-
+			if(pOutStream!=NULL) sprintf(pOutStream," Com Baudrate %u",RFS_DB()->Com2Baud);
+			else Debug("Com Baudrate %u\r\n",RFS_DB()->Com2Baud);
 		}
 		else
 		{
 			u32 baud=Str2Uint(pCmd[1]);
-			u32 i;
+			u16 i;
 			const u32 baudset[]={1200,2400,4800,9600,19200,38400,57600,115200};
 			
 			for(i=0;i<(sizeof(baudset)/sizeof(baudset[0]));i++)
@@ -75,13 +113,29 @@ static bool __inline SysCmdHandler_C(char **pCmd,const char *pStrCopy,char *pOut
 				if(baud==baudset[i])
 				{
 					RFS_DB()->Com2Baud=baud;
-					Debug("Baudrate is set to %u, pls save it.\n\r",baud);
+					AddNextVoidFunc(FALSE,RFS_BurnToRom);
+					
+					if(pOutStream!=NULL) sprintf(pOutStream," Set Com Baudrate to %u",baud);
+					else Debug("Set Com Baudrate to %u\n\r",baud);
+					
 					return TRUE;
 				}
 			}	
-			Debug("Baudrate Num Error!\n\r");
+			
+			if(pOutStream!=NULL) sprintf(pOutStream," Baudrate Num Error");
+			else Debug("Baudrate Num Error!\n\r");
 		}
 
+		return TRUE;
+	}
+	else if(strcmp((void *)pCmd[0],"cmd")==0)
+	{
+		if(pOutStream!=NULL)
+		{
+			SetWorkMode(MNM_CMD);
+			LedIndicate(LMO_CMD_MODE);
+			sprintf(pOutStream,"Into CMD MODE\n\r");
+		}
 		return TRUE;
 	}
 	
@@ -94,7 +148,7 @@ static bool __inline SysCmdHandler_D(char **pCmd,const char *pStrCopy,char *pOut
 	{
 		if(IsNullStr(pCmd[1]))//help
 		{
-			RFS_Debug();
+			RFS_Debug(pOutStream);
 		}
 		else if(NotNullStr(pCmd[1]))
 		{
@@ -104,7 +158,7 @@ static bool __inline SysCmdHandler_D(char **pCmd,const char *pStrCopy,char *pOut
 			//if(NotNullStr(pCmd[2])) Idx=Str2Uint(pCmd[2]);
 			//if(NotNullStr(pCmd[3])) Num=Str2Uint(pCmd[3]);
 
-			if(strcmp((void *)pCmd[1],"sys")==0) {RFS_Debug();}
+			if(strcmp((void *)pCmd[1],"sys")==0) {RFS_Debug(pOutStream);}
 			else if(strcmp((void *)pCmd[1],"tim")==0) {DebugSysTimer();}
 			//else if(strcmp((void *)pCmd[1],"task")==0) {DebugTask();Debug("\r\n");DebugSysTimer();}
 			else if(strcmp((void *)pCmd[1],"ms")==0) {MsFuncRcdDisp();}	
@@ -492,15 +546,24 @@ static bool __inline SysCmdHandler_P(char **pCmd,const char *pStrCopy,char *pOut
 	}
 	else if(strcmp((void *)pCmd[0],"pin")==0)
 	{
-		u32 IO=Str2Uint(pCmd[1]);
-		Debug("PIN[%u]=%u\n\r",IO,IOIN_ReadIoStatus((IO_IN_DEFS)(IO-1+IOIN_PIO0)));
+		if(IsNullStr(pCmd[1]))//help
+		{
 
+		}
+		else
+		{
+			u32 IO=Str2Uint(pCmd[1]);
+
+			if(pOutStream!=NULL) sprintf(pOutStream," PIN[%u]=%u",IO,IOIN_ReadIoStatus((IO_IN_DEFS)(IO-1+IOIN_PIO0)));
+			else Debug("PIN[%u]=%u\n\r",IO,IOIN_ReadIoStatus((IO_IN_DEFS)(IO-1+IOIN_PIO0)));
+		}
+		
 		return TRUE;
 	}
 	else if(strcmp((void *)pCmd[0],"pass")==0)
 	{
-		SendEvent(EBF_RS_COM_CMD,10,"1234567890");
-
+		SendEvent(EBF_RS_COM_TX,10,"1234567890");//发送给对方
+		Com2_Send_Dma("1234567890",10);//发送到自己的com口
 		return TRUE;
 	}
 
@@ -570,7 +633,8 @@ static bool __inline SysCmdHandler_S(char **pCmd,const char *pStrCopy,char *pOut
 {
 	if(strcmp((void *)pCmd[0],"save")==0)
 	{
-		Debug("Save System Parameter\n\r");
+		if(pOutStream!=NULL) sprintf(pOutStream," Save System Parameter");
+		else Debug("Save System Parameter\n\r");
 		RFS_BurnToRom();
 		return TRUE;
 	}
@@ -624,21 +688,12 @@ static bool __inline SysCmdHandler_T(char **pCmd,const char *pStrCopy,char *pOut
 }
 
 static bool __inline SysCmdHandler_U(char **pCmd,const char *pStrCopy,char *pOutStream)
-{}
+{
+	return FALSE;
+}
 
 static bool __inline SysCmdHandler_V(char **pCmd,const char *pStrCopy,char *pOutStream)
 {
-	if(strcmp((void *)pCmd[0],"version")==0)
-	{
-#if ADMIN_DEBUG
-			Debug("Firmware:%u.%u(*)\r\n",__gBinSoftVer,RELEASE_DAY);
-#else
-			Debug("Firmware:%u.%u\r\n",__gBinSoftVer,RELEASE_DAY);
-#endif
-		
-		return TRUE;
-	}
-
     return FALSE;
 }
 
@@ -727,14 +782,15 @@ SysCmdHandler_Y,SysCmdHandler_Z
 //Len 字符串个数
 //pStr 字符串
 //将处理如下命令:
-bool SysCmdHandler(u16 Len,const char *pStr,char *pOutStream)
+bool SysCmdHandler(const char *pStr,char *pOutStream)
 {
 	char *pParam[UART_CMD_MAX_PARAM_NUM+1];
 	char *pBuf=NULL;
 	u16 i,n;
 	bool Res=FALSE;
 	char FirstByts=0;
-	
+
+	/*
 	if(Len==0)//控制字符
 	{
 		if(((u16 *)pStr)[0]==0x445b)
@@ -755,13 +811,15 @@ bool SysCmdHandler(u16 Len,const char *pStr,char *pOutStream)
 			//CDebug("CtrlCode:%x\r\n",((u16 *)pStr)[0]);
 		}	
 		return Res;
-	}
+	}*/
 
 	for(i=0;i<(UART_CMD_MAX_PARAM_NUM+1);i++) pParam[i]=NULL;
 
-	pBuf=Q_Malloc(Len+2);
+	pBuf=Q_Malloc(strlen(pStr)+2);
 	StrCmdParse(pStr,pParam,pBuf,TRUE);//解析指令和参数
-	Debug("\r\n");
+	Q_Free(pBuf);
+
+	if(pOutStream==NULL) Debug("\r\n");
 	
 	FirstByts=pStr[0];
 	if(FirstByts=='#') Res=CustomCmdHandler(pParam,pStr,pOutStream);
@@ -770,10 +828,8 @@ bool SysCmdHandler(u16 Len,const char *pStr,char *pOutStream)
 	
 	if(Res==FALSE) 
 	{
-		Debug("No Such Cmd[%u]:%s\r\n",Len,pBuf);
+		Debug("No Such Cmd:%s\r\n",pStr);
 	}
-	
-	Q_Free(pBuf);
 	
 	return Res;
 }

@@ -28,7 +28,7 @@ typedef enum{
 	DFT_MAX	
 }DEBUG_FLAG_TYPE;
 
-void RFS_Debug(void);
+void RFS_Debug(char *pOutStream);
 void RFS_Init(void);
 void RFS_BurnDefaultToRom(void);
 void RFS_BurnToRom(void);

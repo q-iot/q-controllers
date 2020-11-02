@@ -88,6 +88,6 @@ void Com2_Rx_IDLE_ISR(void)
 	MemCpy(pBuf,US2_RX_BUF,Len);
 	
 	Com2_Dma_Clr();
-	SendEvent(EBF_RS_COM_CMD,Len,pBuf);
+	SendEvent(EBF_RS_COM_TX,Len,pBuf);
 }
 

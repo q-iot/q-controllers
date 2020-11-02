@@ -41,7 +41,7 @@ typedef enum{
 	//内部任务
 	EBF_SYS_CMD,//系统串口命令
 	EBF_LED_MODE=0x30,//led模式
-	EBF_RS_COM_CMD,
+	EBF_RS_COM_TX,
 	
 	//用户自定义事件
 	EBF_USER_EVT1,

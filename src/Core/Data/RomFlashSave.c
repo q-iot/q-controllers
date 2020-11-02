@@ -35,26 +35,34 @@ FALSE,//bool SnAuth;//序列认证
 
 static RFS_BLOCK gDataBlock;//配置缓存
 
-void RFS_Debug(void)
+void RFS_Debug(char *pOutStream)
 {
 	Debug("  -------------------------------------------------------------------\n\r");
-	Frame();Debug("  |SnHash:%u\n\r",GetHwID(NULL));
-#if ADMIN_DEBUG
-	Frame();Debug("  |SoftVer:%u.%u(*)\n\r",__gBinSoftVer,RELEASE_DAY);
-#else
+
+	if(pOutStream!=NULL)
+	{
+		pOutStream[0]=0;
+		sprintf((void *)&pOutStream[strlen(pOutStream)]," HwId:%u \n\r",GetHwID(NULL));
+		sprintf((void *)&pOutStream[strlen(pOutStream)]," SoftVer:%u.%u \n\r",__gBinSoftVer,RELEASE_DAY);
+		sprintf((void *)&pOutStream[strlen(pOutStream)]," Com2_Baud:%u \n\r",gDataBlock.Com2Baud);
+		sprintf((void *)&pOutStream[strlen(pOutStream)]," My WAddr:0x%x \n\r",WNetMyAddr());
+		if(RFS_DB()->SnAuth) sprintf((void *)&pOutStream[strlen(pOutStream)]," Fly WAddr:0x%x \n\r",gDataBlock.RFSI_FLY_ADDR);
+		sprintf((void *)&pOutStream[strlen(pOutStream)]," Broterh:0x%x \n\r",gDataBlock.RFSI_BROTHER_ADDR);
+	}
+
+	//串口打印
+	Frame();Debug("  |HwId:%u\n\r",GetHwID(NULL));
 	Frame();Debug("  |SoftVer:%u.%u\n\r",__gBinSoftVer,RELEASE_DAY);
-#endif
-	Frame();Debug("  |Num:%u\n\r",gDataBlock.Num);
 	Frame();Debug("  |Com2 Baudrate:%u\n\r",gDataBlock.Com2Baud);
 	Frame();Debug("  |MY_WNET_ADDR:0x%x\n\r",WNetMyAddr());
 	Frame();Debug("  |RFSI_RSSI_THRD:%u\n\r",gDataBlock.RFSI_RSSI_THRD);
 	Frame();Debug("  |RFSI_FLY_ADDR:0x%x\n\r",gDataBlock.RFSI_FLY_ADDR);
 	Frame();Debug("  |RFSI_BROTHER_ADDR:0x%x\n\r",gDataBlock.RFSI_BROTHER_ADDR);
 	Frame();Debug("  |Debug:",gDataBlock.RFSI_BROTHER_ADDR);
-					if(NeedDebug(DFT_WNET))Debug("wnet ");
-					if(NeedDebug(DFT_WPKT))Debug("wpkt ");
-					if(NeedDebug(DFT_WDEV))Debug("wdev ");
-					Debug("\n\r");
+		if(NeedDebug(DFT_WNET))Debug("wnet ");
+		if(NeedDebug(DFT_WPKT))Debug("wpkt ");
+		if(NeedDebug(DFT_WDEV))Debug("wdev ");
+		Debug("\n\r");
 	Debug("  -------------------------------------------------------------------\n\r");
 }
 
